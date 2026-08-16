@@ -1,0 +1,82 @@
+{
+  "language": "ne",
+  "documents": {
+    "input": {
+      "manual": 354793,
+      "downloaded": 972892
+    },
+    "kept": {
+      "manual": 340918,
+      "downloaded": 937565
+    },
+    "removed_quality": {
+      "manual": 92,
+      "downloaded": 1891
+    },
+    "removed_langid": {
+      "manual": 666,
+      "downloaded": 7166
+    },
+    "removed_exact_duplicate": {
+      "manual": 11592,
+      "downloaded": 11495
+    },
+    "removed_near_duplicate": {
+      "manual": 1525,
+      "downloaded": 14775
+    }
+  },
+  "foreign_lines_dropped": {
+    "manual": 2407,
+    "downloaded": 60276
+  },
+  "_note_foreign_lines": "Predominantly-Latin lines removed as boilerplate residue (product widgets, 'related gadgets' strips). Foreign WORDS are deliberately retained: code-mixing is genuine usage in Indian journalism, and removing words would leave ungrammatical text.",
+  "by_source": {
+    "fineweb2-ne": {
+      "input": 965291,
+      "kept": 930221,
+      "words_kept": 364899424,
+      "estimated_tokens": 474369251,
+      "keep_rate": 0.9636689868651008
+    },
+    "onlinekhabar": {
+      "input": 354793,
+      "kept": 340918,
+      "words_kept": 130939376,
+      "estimated_tokens": 170221189,
+      "keep_rate": 0.960892689540098
+    },
+    "wikipedia-ne": {
+      "input": 7601,
+      "kept": 7344,
+      "words_kept": 3924778,
+      "estimated_tokens": 5102211,
+      "keep_rate": 0.9661886593869228
+    }
+  },
+  "document_length_histogram_words": {
+    "<1600": 100060,
+    "<200": 455280,
+    "<3200": 23651,
+    "<400": 473606,
+    "<6400": 2839,
+    "<800": 222577,
+    ">=6400": 470
+  },
+  "words_kept": {
+    "manual": 130939376,
+    "downloaded": 368824202
+  },
+  "estimated_tokens": {
+    "manual": 170221189,
+    "downloaded": 479471463
+  },
+  "manual_fraction_of_words": 0.26200263837554005,
+  "predicted_language_distribution": {
+    "ne": 1322443,
+    "hi": 3254,
+    "sa": 3,
+    "mr": 2
+  },
+  "_note_estimated_tokens": "Estimates only, computed as words x 1.3 (the measured fertility for this language). The authoritative token counts are in corpus_stats.json, produced by encoding the corpus with the trained tokenizer."
+}

@@ -1,0 +1,58 @@
+{
+  "language": "hi",
+  "seed": 1337,
+  "granularity": "document",
+  "ratios_requested": {
+    "train": 0.98,
+    "validation": 0.01,
+    "test": 0.01
+  },
+  "splits": {
+    "train": {
+      "documents": 928487,
+      "words": 512804758,
+      "estimated_tokens": 589725472,
+      "document_share": 0.9801424683679265,
+      "manual_words": 148475525,
+      "manual_fraction_of_words": 0.28953616885122585,
+      "by_source": {
+        "jansatta": 259983,
+        "thewirehindi": 36715,
+        "fineweb2-hi": 588958,
+        "wikipedia-hi": 42831
+      }
+    },
+    "validation": {
+      "documents": 9300,
+      "words": 5173667,
+      "estimated_tokens": 5949717,
+      "document_share": 0.0098173964264677,
+      "manual_words": 1481133,
+      "manual_fraction_of_words": 0.2862830174419807,
+      "by_source": {
+        "jansatta": 2589,
+        "thewirehindi": 389,
+        "fineweb2-hi": 5923,
+        "wikipedia-hi": 399
+      }
+    },
+    "test": {
+      "documents": 9511,
+      "words": 5298797,
+      "estimated_tokens": 6093617,
+      "document_share": 0.010040135205605838,
+      "manual_words": 1479016,
+      "manual_fraction_of_words": 0.2791229782911102,
+      "by_source": {
+        "jansatta": 2599,
+        "thewirehindi": 366,
+        "fineweb2-hi": 6154,
+        "wikipedia-hi": 392
+      }
+    }
+  },
+  "total_documents": 947298,
+  "total_words": 523277222,
+  "total_estimated_tokens": 601768805,
+  "_note": "Splits are assigned per document by hashing seed:doc_id, so the partition is reproducible and no article is divided across splits. The tokenizer is trained on the train split only, to keep validation and test text out of the vocabulary."
+}

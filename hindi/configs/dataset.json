@@ -1,0 +1,84 @@
+{
+  "lang": "hi",
+  "language_name": "Hindi",
+  "role": "Model H — higher-resource non-English Indian language",
+  "justification": "Hindi has the largest public monolingual text volume of any Indian language (FineWeb-2 hin_Deva alone is 34.4 GB / ~22.1M documents), and a deep, openly accessible news web that supports the manual-collection requirement. Devanagari script is shared with Nepali, which removes script as a confound when comparing the two resource tiers.",
+  "inputs": {
+    "manual_dir": "data/manual/hi",
+    "downloaded_dir": "data/downloaded/hi"
+  },
+  "outputs": {
+    "clean_dir": "hindi/data/clean",
+    "splits_dir": "hindi/data/splits",
+    "tokenizer_dir": "hindi/tokenizer",
+    "stats_dir": "report/hindi"
+  },
+  "manual_sources": [
+    {
+      "name": "jansatta",
+      "method": "wordpress_api",
+      "notes": "Indian Express group Hindi daily"
+    },
+    {
+      "name": "thewirehindi",
+      "method": "wordpress_api",
+      "notes": "long-form Hindi journalism"
+    }
+  ],
+  "downloaded_sources": [
+    {
+      "name": "wikipedia-hi",
+      "dataset": "wikimedia/wikipedia",
+      "config": "20231101.hi",
+      "licence": "CC BY-SA",
+      "used": true
+    },
+    {
+      "name": "fineweb2-hi",
+      "dataset": "HuggingFaceFW/fineweb-2",
+      "config": "hin_Deva",
+      "licence": "ODC-By",
+      "used": true
+    },
+    {
+      "name": "sangraha-hi",
+      "dataset": "ai4bharat/sangraha",
+      "data_dir": "verified/hin",
+      "licence": "CC0/varied",
+      "used": false,
+      "used_note": "Configured but never reached: the token budget was met by Wikipedia and FineWeb-2 first. Listed for reproducibility."
+    }
+  ],
+  "cleaning": {
+    "min_prose_words": 120,
+    "min_prose_lines": 3,
+    "min_script_ratio": 0.5,
+    "unicode_normalization": "NFC",
+    "langid_min_confidence": 0.5,
+    "max_latin_ratio": 0.8,
+    "max_latin_ratio_note": "Lines whose letters are >80% Latin (and >=4 words) are dropped as extraction residue — product widgets and 'related gadgets' strips. Foreign WORDS are retained: 62% of Hindi documents contain some Latin script, which is genuine code-mixing rather than contamination.",
+    "dedup": {
+      "exact": "SHA-1 of the full normalised document text",
+      "near_duplicate": "SHA-1 of the first 300 characters with whitespace stripped",
+      "near_duplicate_note": "A prefix signature, not MinHash. It catches articles republished with different boilerplate, which share an opening paragraph, at a fraction of MinHash's cost. It will miss near-duplicates that diverge in their opening. Acceptable here because FineWeb-2 is already internally deduplicated, so the main target is manual-vs-downloaded overlap.",
+      "prefer_source_type": "manual",
+      "prefer_note": "Manual shards are read before downloaded shards, so when the same article exists in both the manually collected copy is the one kept. Without this the manual token share would erode during deduplication."
+    }
+  },
+  "splits": {
+    "train": 0.98,
+    "validation": 0.01,
+    "test": 0.01,
+    "seed": 1337,
+    "granularity": "document"
+  },
+  "tokenizer": {
+    "library": "sentencepiece",
+    "model_type": "bpe",
+    "vocab_size": 32000,
+    "character_coverage": 0.9995,
+    "trained_on": "train split only",
+    "notes": "Vocabulary is independent of Nepali's. Trained from scratch; no pretrained tokenizer is used.",
+    "vocab_size_selection": "Candidates 8k/16k/32k/48k trained and evaluated on held-out validation text. Capped at 32k because the embedding matrix (vocab_size x d_model, weight-tied) must not dominate the ~25M-parameter budget set for Phase 2."
+  }
+}

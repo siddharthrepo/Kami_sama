@@ -1,0 +1,255 @@
+{
+  "language": "hi",
+  "language_name": "Hindi",
+  "tokenizer": {
+    "model": "hindi/tokenizer/hi.model",
+    "vocab_size": 32000
+  },
+  "corpus_totals": {
+    "documents": 947298,
+    "words": 535501269,
+    "characters": 2713282897,
+    "tokens": 662356265,
+    "manual_tokens": 185075090,
+    "downloaded_tokens": 477281175,
+    "manual_token_fraction": 0.2794192487935477,
+    "meets_500M_target": true,
+    "meets_20pct_manual": true
+  },
+  "splits": {
+    "train": {
+      "documents": 928487,
+      "words": 524796042,
+      "tokens": 649135502,
+      "tokens_by_source_type": {
+        "manual": 181450984,
+        "downloaded": 467684518
+      },
+      "tokens_by_source": {
+        "jansatta": 143389997,
+        "thewirehindi": 38060987,
+        "fineweb2-hi": 415002038,
+        "wikipedia-hi": 52682480
+      },
+      "fertility_tokens_per_word": 1.2369291115957006,
+      "chars_per_token": 4.096323964422455
+    },
+    "validation": {
+      "documents": 9300,
+      "words": 5292876,
+      "tokens": 6547980,
+      "tokens_by_source_type": {
+        "manual": 1820752,
+        "downloaded": 4727228
+      },
+      "tokens_by_source": {
+        "jansatta": 1433772,
+        "thewirehindi": 386980,
+        "fineweb2-hi": 4208895,
+        "wikipedia-hi": 518333
+      },
+      "fertility_tokens_per_word": 1.237130815080497,
+      "chars_per_token": 4.09491965461104
+    },
+    "test": {
+      "documents": 9511,
+      "words": 5412351,
+      "tokens": 6672783,
+      "tokens_by_source_type": {
+        "manual": 1803354,
+        "downloaded": 4869429
+      },
+      "tokens_by_source": {
+        "jansatta": 1413493,
+        "thewirehindi": 389861,
+        "fineweb2-hi": 4324926,
+        "wikipedia-hi": 544503
+      },
+      "fertility_tokens_per_word": 1.2328806834589996,
+      "chars_per_token": 4.1062525186267855
+    }
+  },
+  "token_frequency": {
+    "distinct_tokens_used": 31874,
+    "vocab_utilisation": 0.9960625,
+    "top_20_tokens": [
+      {
+        "piece": "▁के",
+        "count": 20510185
+      },
+      {
+        "piece": "।",
+        "count": 17770532
+      },
+      {
+        "piece": "▁है",
+        "count": 15524641
+      },
+      {
+        "piece": "▁में",
+        "count": 15474273
+      },
+      {
+        "piece": ",",
+        "count": 12575472
+      },
+      {
+        "piece": "▁की",
+        "count": 12011018
+      },
+      {
+        "piece": "<0x0A>",
+        "count": 11857598
+      },
+      {
+        "piece": "▁को",
+        "count": 9466292
+      },
+      {
+        "piece": "▁से",
+        "count": 9330930
+      },
+      {
+        "piece": "▁और",
+        "count": 9111532
+      },
+      {
+        "piece": "▁का",
+        "count": 7224543
+      },
+      {
+        "piece": "▁हैं",
+        "count": 6357724
+      },
+      {
+        "piece": ".",
+        "count": 6059986
+      },
+      {
+        "piece": "▁पर",
+        "count": 5544036
+      },
+      {
+        "piece": "▁ने",
+        "count": 5525176
+      },
+      {
+        "piece": "▁कि",
+        "count": 4947212
+      },
+      {
+        "piece": "▁भी",
+        "count": 4394482
+      },
+      {
+        "piece": "▁एक",
+        "count": 3917368
+      },
+      {
+        "piece": "-",
+        "count": 3852207
+      },
+      {
+        "piece": "▁लिए",
+        "count": 3840995
+      }
+    ],
+    "hapax_tokens": 1
+  },
+  "tokenization_examples": [
+    {
+      "text": "भारत में शिक्षा का अधिकार एक मौलिक अधिकार है।",
+      "pieces": [
+        "▁भारत",
+        "▁में",
+        "▁शिक्षा",
+        "▁का",
+        "▁अधिकार",
+        "▁एक",
+        "▁मौलिक",
+        "▁अधिकार",
+        "▁है",
+        "।"
+      ],
+      "ids": [
+        582,
+        277,
+        1601,
+        295,
+        1127,
+        334,
+        9584,
+        1127,
+        266,
+        31894
+      ],
+      "n_words": 9,
+      "n_tokens": 10,
+      "fertility": 1.1111111111111112
+    },
+    {
+      "text": "प्रधानमंत्री ने नई दिल्ली में एक बैठक की अध्यक्षता की।",
+      "pieces": [
+        "▁प्रधानमंत्री",
+        "▁ने",
+        "▁नई",
+        "▁दिल्ली",
+        "▁में",
+        "▁एक",
+        "▁बैठक",
+        "▁की",
+        "▁अध्यक्षता",
+        "▁की",
+        "।"
+      ],
+      "ids": [
+        1251,
+        307,
+        1138,
+        776,
+        277,
+        334,
+        1787,
+        281,
+        5344,
+        281,
+        31894
+      ],
+      "n_words": 10,
+      "n_tokens": 11,
+      "fertility": 1.1
+    },
+    {
+      "text": "iPhone 15 की कीमत भारत में 79,900 रुपये है।",
+      "pieces": [
+        "▁iPhone",
+        "▁15",
+        "▁की",
+        "▁कीमत",
+        "▁भारत",
+        "▁में",
+        "▁79",
+        ",900",
+        "▁रुपये",
+        "▁है",
+        "।"
+      ],
+      "ids": [
+        9208,
+        1281,
+        281,
+        1497,
+        582,
+        277,
+        10978,
+        17140,
+        883,
+        266,
+        31894
+      ],
+      "n_words": 9,
+      "n_tokens": 11,
+      "fertility": 1.2222222222222223
+    }
+  ]
+}

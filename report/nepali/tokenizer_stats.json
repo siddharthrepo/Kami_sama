@@ -1,0 +1,67 @@
+{
+  "language": "ne",
+  "library": "sentencepiece",
+  "model_type": "bpe",
+  "character_coverage": 0.9995,
+  "byte_fallback": true,
+  "trained_on": "train split only",
+  "training_sample_lines": 2000000,
+  "held_out_documents": 3000,
+  "selection_rule": "Chosen by held-out fertility and byte-fallback rate, then constrained by the ~25M-parameter model budget the assignment sets for Phase 2. Fertility keeps improving up to 48k (1.226 vs 1.272 at 32k), but with weight tying the embedding matrix is vocab_size x d_model: at 48k it would consume ~18.4M of the 25M budget and leave only ~6.6M for the Transformer layers, against ~12.3M/~12.7M at 32k. A 3.6% fertility gain does not justify surrendering a quarter of the model.",
+  "selected_vocab_size": 32000,
+  "candidates": [
+    {
+      "vocab_size": 8000,
+      "tokens": 1776275,
+      "words": 1144532,
+      "characters": 7268096,
+      "fertility_tokens_per_word": 1.5519662185067784,
+      "chars_per_token": 4.091762818257308,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.01912147612278504,
+      "distinct_pieces_used": 7808,
+      "vocab_utilisation": 0.976,
+      "train_seconds": 38.3
+    },
+    {
+      "vocab_size": 16000,
+      "tokens": 1585375,
+      "words": 1144532,
+      "characters": 7268096,
+      "fertility_tokens_per_word": 1.3851731537431893,
+      "chars_per_token": 4.58446487424111,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.02142395332334621,
+      "distinct_pieces_used": 15687,
+      "vocab_utilisation": 0.9804375,
+      "train_seconds": 42.0
+    },
+    {
+      "vocab_size": 32000,
+      "tokens": 1455424,
+      "words": 1144532,
+      "characters": 7268096,
+      "fertility_tokens_per_word": 1.2716324226845557,
+      "chars_per_token": 4.993799744954048,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.02333684204740337,
+      "distinct_pieces_used": 30770,
+      "vocab_utilisation": 0.9615625,
+      "train_seconds": 41.8
+    },
+    {
+      "vocab_size": 48000,
+      "tokens": 1402776,
+      "words": 1144532,
+      "characters": 7268096,
+      "fertility_tokens_per_word": 1.22563283508019,
+      "chars_per_token": 5.18122351679812,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.024212703952733724,
+      "distinct_pieces_used": 43906,
+      "vocab_utilisation": 0.9147083333333333,
+      "train_seconds": 39.4
+    }
+  ],
+  "note_vs_hindi": "Hindi saturates earlier: its 48k vocabulary sits 78.6% utilised, so 32k was selected on fertility grounds alone. Nepali's 48k vocabulary is still 91.5% utilised, indicating it would continue to benefit from a larger vocabulary. Nepali is morphologically richer and segments less efficiently at every size (1.552 vs 1.388 tokens/word at 8k)."
+}

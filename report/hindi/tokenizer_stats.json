@@ -1,0 +1,66 @@
+{
+  "language": "hi",
+  "library": "sentencepiece",
+  "model_type": "bpe",
+  "character_coverage": 0.9995,
+  "byte_fallback": true,
+  "trained_on": "train split only",
+  "training_sample_lines": 2000000,
+  "held_out_documents": 3000,
+  "selection_rule": "smallest vocabulary whose held-out fertility is within 3% of the best observed, preferring a smaller embedding matrix",
+  "selected_vocab_size": 32000,
+  "candidates": [
+    {
+      "vocab_size": 8000,
+      "tokens": 2108090,
+      "words": 1518616,
+      "characters": 7690448,
+      "fertility_tokens_per_word": 1.3881652768046695,
+      "chars_per_token": 3.6480643615784905,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.017083236484210826,
+      "distinct_pieces_used": 7719,
+      "vocab_utilisation": 0.964875,
+      "train_seconds": 34.2
+    },
+    {
+      "vocab_size": 16000,
+      "tokens": 1931027,
+      "words": 1518616,
+      "characters": 7690448,
+      "fertility_tokens_per_word": 1.2715702982189045,
+      "chars_per_token": 3.982568861025765,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.018649661553152803,
+      "distinct_pieces_used": 15327,
+      "vocab_utilisation": 0.9579375,
+      "train_seconds": 33.6
+    },
+    {
+      "vocab_size": 32000,
+      "tokens": 1829228,
+      "words": 1518616,
+      "characters": 7690448,
+      "fertility_tokens_per_word": 1.204536235625069,
+      "chars_per_token": 4.20420417793736,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.01968754031755473,
+      "distinct_pieces_used": 28468,
+      "vocab_utilisation": 0.889625,
+      "train_seconds": 33.6
+    },
+    {
+      "vocab_size": 48000,
+      "tokens": 1793033,
+      "words": 1518616,
+      "characters": 7690448,
+      "fertility_tokens_per_word": 1.1807020339572347,
+      "chars_per_token": 4.28907220335599,
+      "unk_rate": 0.0,
+      "byte_fallback_rate": 0.02008496218418735,
+      "distinct_pieces_used": 37721,
+      "vocab_utilisation": 0.7858541666666666,
+      "train_seconds": 34.2
+    }
+  ]
+}

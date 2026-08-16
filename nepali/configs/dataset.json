@@ -1,0 +1,80 @@
+{
+  "lang": "ne",
+  "language_name": "Nepali",
+  "role": "Model L — lower-resource language from the permitted list",
+  "justification": "Nepali is on the assignment's allowed lower-resource list and shares the Devanagari script with Hindi, so the comparison between the two models isolates data resource level rather than script or tokenizer-family differences. It is genuinely lower-resource: Nepali Wikipedia yielded 7,601 usable documents against Hindi's 44,170, and FineWeb-2's npi_Deva split is 6.8 GB against hin_Deva's 34.4 GB.",
+  "inputs": {
+    "manual_dir": "data/manual/ne",
+    "downloaded_dir": "data/downloaded/ne"
+  },
+  "outputs": {
+    "clean_dir": "nepali/data/clean",
+    "splits_dir": "nepali/data/splits",
+    "tokenizer_dir": "nepali/tokenizer",
+    "stats_dir": "report/nepali"
+  },
+  "manual_sources": [
+    {
+      "name": "onlinekhabar",
+      "method": "wordpress_api",
+      "notes": "high-volume Nepali news portal"
+    }
+  ],
+  "downloaded_sources": [
+    {
+      "name": "wikipedia-ne",
+      "dataset": "wikimedia/wikipedia",
+      "config": "20231101.ne",
+      "licence": "CC BY-SA",
+      "used": true
+    },
+    {
+      "name": "fineweb2-ne",
+      "dataset": "HuggingFaceFW/fineweb-2",
+      "config": "npi_Deva",
+      "licence": "ODC-By",
+      "used": true
+    },
+    {
+      "name": "sangraha-ne",
+      "dataset": "ai4bharat/sangraha",
+      "data_dir": "verified/nep",
+      "licence": "CC0/varied",
+      "used": false,
+      "used_note": "Configured but never reached: the token budget was met by Wikipedia and FineWeb-2 first. Listed for reproducibility."
+    }
+  ],
+  "cleaning": {
+    "min_prose_words": 120,
+    "min_prose_lines": 3,
+    "min_script_ratio": 0.5,
+    "unicode_normalization": "NFC",
+    "langid_min_confidence": 0.5,
+    "max_latin_ratio": 0.8,
+    "max_latin_ratio_note": "Lines whose letters are >80% Latin (and >=4 words) are dropped as extraction residue. Nepali needs this far less than Hindi: only 2.9% of Nepali documents contain any Latin script, against 62% of Hindi ones, because Nepali journalism transliterates foreign names into Devanagari instead of code-mixing.",
+    "langid_note": "Critical for Nepali. FineWeb-2 groups by script, so Hindi, Marathi, Bhojpuri and Maithili documents contaminate the Devanagari splits and cannot be separated by character range alone.",
+    "dedup": {
+      "exact": "SHA-1 of the full normalised document text",
+      "near_duplicate": "SHA-1 of the first 300 characters with whitespace stripped",
+      "near_duplicate_note": "A prefix signature, not MinHash. It catches articles republished with different boilerplate, which share an opening paragraph, at a fraction of MinHash's cost. It will miss near-duplicates that diverge in their opening. Acceptable here because FineWeb-2 is already internally deduplicated, so the main target is manual-vs-downloaded overlap.",
+      "prefer_source_type": "manual",
+      "prefer_note": "Manual shards are read before downloaded shards, so when the same article exists in both the manually collected copy is the one kept. Without this the manual token share would erode during deduplication."
+    }
+  },
+  "splits": {
+    "train": 0.98,
+    "validation": 0.01,
+    "test": 0.01,
+    "seed": 1337,
+    "granularity": "document"
+  },
+  "tokenizer": {
+    "library": "sentencepiece",
+    "model_type": "bpe",
+    "vocab_size": 32000,
+    "character_coverage": 0.9995,
+    "trained_on": "train split only",
+    "notes": "Vocabulary is independent of Hindi's. Trained from scratch; no pretrained tokenizer is used.",
+    "vocab_size_selection": "Candidates 8k/16k/32k/48k trained and evaluated on held-out validation text. Capped at 32k because the embedding matrix (vocab_size x d_model, weight-tied) must not dominate the ~25M-parameter budget set for Phase 2."
+  }
+}

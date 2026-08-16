@@ -1,0 +1,96 @@
+{
+  "language": "hi",
+  "documents": {
+    "input": {
+      "manual": 303776,
+      "downloaded": 656824
+    },
+    "kept": {
+      "manual": 302641,
+      "downloaded": 644657
+    },
+    "removed_quality": {
+      "manual": 92,
+      "downloaded": 7067
+    },
+    "removed_langid": {
+      "manual": 2,
+      "downloaded": 29
+    },
+    "removed_exact_duplicate": {
+      "manual": 877,
+      "downloaded": 1295
+    },
+    "removed_near_duplicate": {
+      "manual": 164,
+      "downloaded": 3776
+    }
+  },
+  "foreign_lines_dropped": {
+    "manual": 64232,
+    "downloaded": 357175
+  },
+  "_note_foreign_lines": "Predominantly-Latin lines removed as boilerplate residue (product widgets, 'related gadgets' strips). Foreign WORDS are deliberately retained: code-mixing is genuine usage in Indian journalism, and removing words would leave ungrammatical text.",
+  "by_source": {
+    "fineweb2-hi": {
+      "input": 612654,
+      "kept": 601035,
+      "words_kept": 336505815,
+      "estimated_tokens": 416257693,
+      "keep_rate": 0.9810349724314213
+    },
+    "jansatta": {
+      "input": 266296,
+      "kept": 265171,
+      "words_kept": 119229871,
+      "estimated_tokens": 147487350,
+      "keep_rate": 0.9957753777751074
+    },
+    "thewirehindi": {
+      "input": 37480,
+      "kept": 37470,
+      "words_kept": 32205803,
+      "estimated_tokens": 39838578,
+      "keep_rate": 0.9997331910352187
+    },
+    "wikipedia-hi": {
+      "input": 44170,
+      "kept": 43622,
+      "words_kept": 35335733,
+      "estimated_tokens": 43710302,
+      "keep_rate": 0.9875933891781752
+    }
+  },
+  "document_length_histogram_words": {
+    "<1600": 104379,
+    "<200": 84061,
+    "<3200": 28013,
+    "<400": 421837,
+    "<6400": 6147,
+    "<800": 301069,
+    ">=6400": 1792
+  },
+  "words_kept": {
+    "manual": 151435674,
+    "downloaded": 371841548
+  },
+  "estimated_tokens": {
+    "manual": 187325929,
+    "downloaded": 459967995
+  },
+  "manual_fraction_of_words": 0.28939855899173844,
+  "predicted_language_distribution": {
+    "hi": 953414,
+    "mr": 13,
+    "ne": 3,
+    "en": 2,
+    "gu": 2,
+    "sa": 2,
+    "pa": 1,
+    "ko": 1,
+    "ml": 1,
+    "ru": 1,
+    "uk": 1
+  },
+  "_note_estimated_tokens": "Estimates only, computed as words x 1.237 (the measured fertility for this language). The authoritative token counts are in corpus_stats.json, produced by encoding the corpus with the trained tokenizer."
+}

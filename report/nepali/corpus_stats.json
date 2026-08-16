@@ -1,0 +1,230 @@
+{
+  "language": "ne",
+  "language_name": "Nepali",
+  "tokenizer": {
+    "model": "nepali/tokenizer/ne.model",
+    "vocab_size": 32000
+  },
+  "corpus_totals": {
+    "documents": 1278483,
+    "words": 506993066,
+    "characters": 3267810384,
+    "tokens": 659293660,
+    "manual_tokens": 168487902,
+    "downloaded_tokens": 490805758,
+    "manual_token_fraction": 0.2555582014849043,
+    "meets_500M_target": true,
+    "meets_20pct_manual": true
+  },
+  "splits": {
+    "train": {
+      "documents": 1252767,
+      "words": 496775425,
+      "tokens": 645993506,
+      "tokens_by_source_type": {
+        "manual": 165054972,
+        "downloaded": 480938534
+      },
+      "tokens_by_source": {
+        "onlinekhabar": 165054972,
+        "fineweb2-ne": 474424850,
+        "wikipedia-ne": 6513684
+      },
+      "fertility_tokens_per_word": 1.300373314561605,
+      "chars_per_token": 4.9566343473428045
+    },
+    "validation": {
+      "documents": 12962,
+      "words": 5170139,
+      "tokens": 6742672,
+      "tokens_by_source_type": {
+        "manual": 1702705,
+        "downloaded": 5039967
+      },
+      "tokens_by_source": {
+        "onlinekhabar": 1702705,
+        "fineweb2-ne": 4982815,
+        "wikipedia-ne": 57152
+      },
+      "fertility_tokens_per_word": 1.3041568128052263,
+      "chars_per_token": 4.944669857884233
+    },
+    "test": {
+      "documents": 12754,
+      "words": 5047502,
+      "tokens": 6557482,
+      "tokens_by_source_type": {
+        "manual": 1730225,
+        "downloaded": 4827257
+      },
+      "tokens_by_source": {
+        "onlinekhabar": 1730225,
+        "fineweb2-ne": 4767900,
+        "wikipedia-ne": 59357
+      },
+      "fertility_tokens_per_word": 1.2991539181163276,
+      "chars_per_token": 4.958686428723708
+    }
+  },
+  "token_frequency": {
+    "distinct_tokens_used": 31919,
+    "vocab_utilisation": 0.99746875,
+    "top_20_tokens": [
+      {
+        "piece": "▁।",
+        "count": 24129948
+      },
+      {
+        "piece": ",",
+        "count": 13131254
+      },
+      {
+        "piece": "<0x0A>",
+        "count": 12739688
+      },
+      {
+        "piece": "▁र",
+        "count": 9026397
+      },
+      {
+        "piece": "▁छ",
+        "count": 8255306
+      },
+      {
+        "piece": "।",
+        "count": 5135785
+      },
+      {
+        "piece": "▁पनि",
+        "count": 4908857
+      },
+      {
+        "piece": "▁छन्",
+        "count": 3010722
+      },
+      {
+        "piece": "▁भएको",
+        "count": 2960702
+      },
+      {
+        "piece": "को",
+        "count": 2800515
+      },
+      {
+        "piece": "▁हो",
+        "count": 2645188
+      },
+      {
+        "piece": "▁लागि",
+        "count": 2565229
+      },
+      {
+        "piece": "का",
+        "count": 2433140
+      },
+      {
+        "piece": "-",
+        "count": 2424695
+      },
+      {
+        "piece": "▁गरेको",
+        "count": 2423618
+      },
+      {
+        "piece": "▁भने",
+        "count": 2404514
+      },
+      {
+        "piece": "▁गर्न",
+        "count": 2359229
+      },
+      {
+        "piece": "▁गर्ने",
+        "count": 2274892
+      },
+      {
+        "piece": "▁'",
+        "count": 2232369
+      },
+      {
+        "piece": "मा",
+        "count": 2191557
+      }
+    ],
+    "hapax_tokens": 2
+  },
+  "tokenization_examples": [
+    {
+      "text": "नेपालमा शिक्षाको अधिकार मौलिक अधिकार हो।",
+      "pieces": [
+        "▁नेपालमा",
+        "▁शिक्षाको",
+        "▁अधिकार",
+        "▁मौलिक",
+        "▁अधिकार",
+        "▁हो",
+        "।"
+      ],
+      "ids": [
+        1202,
+        6191,
+        1472,
+        4564,
+        1472,
+        358,
+        31928
+      ],
+      "n_words": 6,
+      "n_tokens": 7,
+      "fertility": 1.1666666666666667
+    },
+    {
+      "text": "प्रधानमन्त्रीले काठमाडौंमा एउटा बैठकको अध्यक्षता गरे।",
+      "pieces": [
+        "▁प्रधानमन्त्रीले",
+        "▁काठमाडौंमा",
+        "▁एउटा",
+        "▁बैठकको",
+        "▁अध्यक्षता",
+        "▁गरे",
+        "।"
+      ],
+      "ids": [
+        4331,
+        3506,
+        954,
+        7578,
+        10596,
+        596,
+        31928
+      ],
+      "n_words": 6,
+      "n_tokens": 7,
+      "fertility": 1.1666666666666667
+    },
+    {
+      "text": "नेपाल र भारतबीचको सम्बन्ध ऐतिहासिक छ।",
+      "pieces": [
+        "▁नेपाल",
+        "▁र",
+        "▁भारतबीचको",
+        "▁सम्बन्ध",
+        "▁ऐतिहासिक",
+        "▁छ",
+        "।"
+      ],
+      "ids": [
+        366,
+        272,
+        30024,
+        913,
+        3830,
+        283,
+        31928
+      ],
+      "n_words": 6,
+      "n_tokens": 7,
+      "fertility": 1.1666666666666667
+    }
+  ]
+}

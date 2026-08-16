@@ -1,0 +1,55 @@
+{
+  "language": "ne",
+  "seed": 1337,
+  "granularity": "document",
+  "ratios_requested": {
+    "train": 0.98,
+    "validation": 0.01,
+    "test": 0.01
+  },
+  "splits": {
+    "train": {
+      "documents": 1252767,
+      "words": 489696132,
+      "estimated_tokens": 563150552,
+      "document_share": 0.9798855362175328,
+      "manual_words": 128275580,
+      "manual_fraction_of_words": 0.26194934290393784,
+      "by_source": {
+        "onlinekhabar": 334059,
+        "fineweb2-ne": 911498,
+        "wikipedia-ne": 7210
+      }
+    },
+    "validation": {
+      "documents": 12962,
+      "words": 5091701,
+      "estimated_tokens": 5855456,
+      "document_share": 0.010138578299437692,
+      "manual_words": 1321423,
+      "manual_fraction_of_words": 0.2595248621236793,
+      "by_source": {
+        "onlinekhabar": 3425,
+        "fineweb2-ne": 9472,
+        "wikipedia-ne": 65
+      }
+    },
+    "test": {
+      "documents": 12754,
+      "words": 4975745,
+      "estimated_tokens": 5722107,
+      "document_share": 0.009975885483029497,
+      "manual_words": 1342373,
+      "manual_fraction_of_words": 0.2697833188798863,
+      "by_source": {
+        "onlinekhabar": 3434,
+        "fineweb2-ne": 9251,
+        "wikipedia-ne": 69
+      }
+    }
+  },
+  "total_documents": 1278483,
+  "total_words": 499763578,
+  "total_estimated_tokens": 574728115,
+  "_note": "Splits are assigned per document by hashing seed:doc_id, so the partition is reproducible and no article is divided across splits. The tokenizer is trained on the train split only, to keep validation and test text out of the vocabulary."
+}
