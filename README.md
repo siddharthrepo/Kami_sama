@@ -139,6 +139,15 @@ held-out validation text, and installs the selected one.
 Total runtime on a 12-core CPU machine: roughly 4 hours, dominated by collection.
 No GPU is required for Phase 1.
 
+### Packaging artifacts for Google Drive
+
+Bundles the large artifacts into archives with checksums, and generates the rows for the
+link table below.
+
+```bash
+.venv/bin/python -m scripts.package_for_drive --out drive_upload
+```
+
 ## Third-party models used for data cleaning
 
 Two pretrained components are used, both for **data preparation only**. Neither is a
@@ -154,14 +163,25 @@ The tokenizers in `hindi/tokenizer/` and `nepali/tokenizer/` are trained from sc
 
 ## Google Drive links
 
-_To be added before submission._
+Produced by `scripts/package_for_drive.py` (default `--profile full`, ~11.1 GB total).
+Set each file to "Anyone with the link can view" so graders do not have to request access.
 
-| Artifact | Size | Link |
-|---|---|---|
-| Hindi corpus — raw shards (manual + downloaded) | 1.3 GB | _pending_ |
-| Nepali corpus — raw shards | 1.5 GB | _pending_ |
-| Hindi cleaned corpus + splits | 1.3 GB | _pending_ |
-| Nepali cleaned corpus + splits | 1.4 GB | _pending_ |
-| Hindi tokenizer (`hi.model`, `hi.vocab`) | 1.5 MB | _pending_ |
-| Nepali tokenizer (`ne.model`, `ne.vocab`) | 1.8 MB | _pending_ |
-| Run logs | 1.7 MB | _pending_ |
+_Links to be added before submission._
+
+| Archive | Contents | Size | Link |
+|---|---|---|---|
+| `hindi-manual-corpus.tar` | Hindi scraped shards — Jansatta, The Wire Hindi | 345 MB | _pending_ |
+| `nepali-manual-corpus.tar` | Nepali scraped shards — Onlinekhabar | 381 MB | _pending_ |
+| `hindi-downloaded-corpus.tar` | Hindi FineWeb-2 + Wikipedia shards | 930 MB | _pending_ |
+| `nepali-downloaded-corpus.tar` | Nepali FineWeb-2 + Wikipedia shards | 1.2 GB | _pending_ |
+| `hindi-clean-corpus.tar` | Hindi corpus after cleaning, before splitting | 1.3 GB | _pending_ |
+| `nepali-clean-corpus.tar` | Nepali corpus after cleaning, before splitting | 1.5 GB | _pending_ |
+| `hindi-splits.tar` | Hindi train/validation/test — input to Phase 2 | 1.3 GB | _pending_ |
+| `nepali-splits.tar` | Nepali train/validation/test — input to Phase 2 | 1.5 GB | _pending_ |
+| `tokenizers.tar` | Both tokenizers, all four candidate vocab sizes, training samples | 2.4 GB | _pending_ |
+| `reports-and-logs.tar` | Statistics JSON, figures, phase report, all run logs | 5 MB | _pending_ |
+
+The trained tokenizers (`hi.model`, `hi.vocab`, `ne.model`, `ne.vocab` — 3.3 MB total) are
+small enough to be committed directly and are in this repository; the Drive copy is a
+backup that also carries the intermediate vocabulary sizes and the SentencePiece training
+samples.

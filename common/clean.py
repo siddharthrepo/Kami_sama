@@ -14,13 +14,15 @@ This module strips all three, then decides whether what remains is a real articl
 quality gate is applied to the *cleaned* text, which matters: a page that looks like
 12,000 characters of content before cleaning can be 400 characters of prose after it.
 
-Site-wide boilerplate that these patterns miss is caught later, at the corpus level,
-where any line repeating across many documents of the same source is removable by
-frequency alone.
+Site-wide boilerplate that these patterns miss is caught by :func:`drop_boilerplate_lines`,
+which removes lines that ``scripts/find_boilerplate.py`` measured as repeating across many
+documents of the corpus. That pass is evidence-driven rather than hand-written, and is
+optional — the regex list above still applies without it.
 """
 
 from __future__ import annotations
 
+import hashlib
 import re
 
 # A line that is entirely a JSON object — CMS metadata leaked into the body.
@@ -126,6 +128,40 @@ def drop_foreign_lines(
             continue
         kept.append(line)
     return "\n".join(kept)
+
+
+def drop_boilerplate_lines(text: str, boilerplate: set[str]) -> tuple[str, int]:
+    """Remove lines identified as corpus-wide boilerplate.
+
+    The regex blocklist above only catches furniture someone thought to write a pattern
+    for. This complements it with evidence: ``scripts/find_boilerplate.py`` scans the whole
+    corpus and records the hash of every line appearing more than a threshold number of
+    times, which is site furniture almost by definition — table headers, "also read"
+    links, bylines, agency attributions.
+
+    Operating on whole lines is what makes it safe. A frequently occurring *name* is only
+    ever a standalone line when it is a caption or tag; genuine prose mentioning it is a
+    full sentence, which will not repeat verbatim.
+
+    Args:
+        text: Normalised document text.
+        boilerplate: Line hashes to remove, as produced by ``find_boilerplate.py``.
+
+    Returns:
+        A ``(filtered_text, lines_dropped)`` pair.
+    """
+    if not boilerplate:
+        return text, 0
+
+    kept: list[str] = []
+    dropped = 0
+    for line in text.split("\n"):
+        stripped = line.strip()
+        if stripped and hashlib.sha1(stripped.encode("utf-8")).hexdigest()[:12] in boilerplate:
+            dropped += 1
+            continue
+        kept.append(line)
+    return "\n".join(kept), dropped
 
 
 def clean_text(text: str) -> str:

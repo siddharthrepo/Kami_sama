@@ -34,3 +34,7 @@ __pycache__/
 .claude/
 .vscode/
 .idea/
+
+# Archives staged for Google Drive upload
+drive_upload/
+*.tar

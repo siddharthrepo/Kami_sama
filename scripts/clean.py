@@ -36,7 +36,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from common.clean import drop_foreign_lines, is_good_document, prose_word_count
+from common.clean import (drop_boilerplate_lines, drop_foreign_lines,
+                          is_good_document, prose_word_count)
 from common.langid import LanguageIdentifier
 from common.normalize import normalize_text
 from common.schema import MANUAL, Document, ShardWriter, read_shards
@@ -81,6 +82,7 @@ class CorpusCleaner:
         langid_min_confidence: float = 0.5,
         near_dup: bool = True,
         max_latin_ratio: float = 0.8,
+        boilerplate: set[str] | None = None,
     ) -> None:
         """Configure the cleaner.
 
@@ -97,6 +99,7 @@ class CorpusCleaner:
         self.langid_min_confidence = langid_min_confidence
         self.near_dup = near_dup
         self.max_latin_ratio = max_latin_ratio
+        self.boilerplate = boilerplate or set()
 
         self.identifier = LanguageIdentifier()
         self.seen_exact: set[str] = set()
@@ -110,6 +113,7 @@ class CorpusCleaner:
             "removed_exact_dup": Counter(),
             "removed_near_dup": Counter(),
             "foreign_lines_dropped": Counter(),
+            "boilerplate_lines_dropped": Counter(),
             "predicted_langs": Counter(),
             "words_kept": Counter(),
             # Per-source breakdowns. The assignment asks for corpus statistics by
@@ -146,6 +150,10 @@ class CorpusCleaner:
             dropped = normalized.count("\n") - filtered.count("\n")
             if dropped > 0:
                 self.stats["foreign_lines_dropped"][doc.source_type] += dropped
+
+            filtered, boiler_dropped = drop_boilerplate_lines(filtered, self.boilerplate)
+            if boiler_dropped:
+                self.stats["boilerplate_lines_dropped"][doc.source_type] += boiler_dropped
             texts.append(filtered)
         predictions = self.identifier.predict_batch(texts)
         kept: list[Document] = []
@@ -255,6 +263,7 @@ class CorpusCleaner:
                 "removed_near_duplicate": dict(self.stats["removed_near_dup"]),
             },
             "foreign_lines_dropped": dict(self.stats["foreign_lines_dropped"]),
+            "boilerplate_lines_dropped": dict(self.stats["boilerplate_lines_dropped"]),
             "_note_foreign_lines": (
                 "Predominantly-Latin lines removed as boilerplate residue "
                 "(product widgets, 'related gadgets' strips). Foreign WORDS are "
@@ -310,12 +319,22 @@ def run(args: argparse.Namespace) -> None:
     print(f"  inputs : {[str(p) for p in input_dirs]}", flush=True)
     print(f"  output : {out_dir}", flush=True)
 
+    # Corpus-wide repeated-line list, if one has been built. Optional: without it the
+    # regex blocklist still applies, just with narrower coverage.
+    boilerplate: set[str] = set()
+    if args.boilerplate:
+        payload = json.loads(Path(args.boilerplate).read_text())
+        boilerplate = set(payload["hashes"])
+        print(f"  boilerplate: {len(boilerplate):,} repeated lines loaded from "
+              f"{args.boilerplate}", flush=True)
+
     cleaner = CorpusCleaner(
         lang=lang,
         min_prose_words=cleaning.get("min_prose_words", 120),
         langid_min_confidence=cleaning.get("langid_min_confidence", 0.5),
         near_dup=not args.no_near_dup,
         max_latin_ratio=cleaning.get("max_latin_ratio", 0.8),
+        boilerplate=boilerplate,
     )
 
     with ShardWriter(out_dir, f"{lang}-clean", max_docs_per_shard=25_000) as writer:
@@ -341,6 +360,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
                         help="Override the output directory from the config.")
     parser.add_argument("--limit", type=int, default=0,
                         help="Process at most this many input documents. 0 = all.")
+    parser.add_argument("--boilerplate", default=None,
+                        help="Path to a boilerplate_lines.json produced by "
+                             "scripts.find_boilerplate. Lines listed there are removed "
+                             "from every document.")
     parser.add_argument("--no-near-dup", action="store_true",
                         help="Skip prefix-based near-duplicate removal.")
     return parser.parse_args(argv)
