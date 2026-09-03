@@ -26,14 +26,31 @@ notebook works with Kaggle's internet toggle on. It **does** need internet on �
 ## 1. Kaggle Datasets to create
 
 The notebook looks for its inputs by **searching** `/kaggle/input` recursively, not by
-fixed paths. That means dataset *names* are flexible, but two things are not:
+fixed paths, so you can name the datasets whatever you like. There is exactly one rule:
 
-- A language's files must have **`hindi`** or **`nepal`** somewhere in their path.
-  That substring is how the notebook decides which language a file belongs to. Getting
-  this wrong is the one mistake that silently mixes the two models, so the notebook
-  fails loudly rather than guessing.
-- The three **code** datasets must contain directories named exactly
-  `automation-scripts`, `common`, and `language-models-agents`.
+> **A language's data files must have `hindi` or `nepal` in their path, and never both.**
+
+That substring is how the notebook decides which language a file belongs to. Kaggle
+derives the mount directory from the dataset title, so in practice the title supplies it:
+`hindi/data/tokens/` mounts as `/kaggle/input/hindi-data-tokens/` and matches.
+
+The dangerous case is a *single* dataset holding both languages under a name like
+`hindi-nepali-corpus`. Every path in it then matches both languages, and Nepali would
+silently resolve to the Hindi files — training Model L on Hindi data, which the
+vocabulary check downstream cannot catch because both vocabularies are the same size.
+The notebook now detects this and refuses to continue:
+
+```
+LANGUAGE CONTAMINATION: the same source file was selected for both models:
+  /kaggle/input/hindi-nepali-corpus/train.bin
+  ...
+Cause: a dataset path contains both 'hindi' and 'nepal'.
+```
+
+**Code datasets need no particular name.** They are identified by the modules they
+contain — `lma/` is whichever directory holds `model.py`, `checkpoint.py` and
+`schedule.py` — so renaming them is safe. Cell 6 prints which directory it picked for
+each package.
 
 ### Data datasets
 
@@ -51,15 +68,18 @@ substring rule is satisfied automatically.
 
 ### Code datasets
 
-| Dataset name | Upload this directory | Contains |
-|---|---|---|
-| `automation-scripts` | `scripts/` | `pretrain.py`, `eval_lm.py`, `eval_generation.py`, `attention_analysis.py`, `plot_training.py` |
-| `common` | `common/` | shared helpers from Phase 1 |
-| `language-models-agents` | `lma/` | `model.py`, `config.py`, `data.py`, `checkpoint.py`, `schedule.py`, `generate.py`, `metrics.py`, `attention.py` |
+Three separate uploads, one per package. The dataset names below are the ones currently
+in use; any name works, but they must stay **three separate datasets**.
 
-They are kept as three separate uploads on purpose: both `scripts/` and `common/` contain
-a file called `clean.py`, and flattening them into one dataset would silently overwrite
-one with the other.
+| Upload this directory | Currently named | Identified by |
+|---|---|---|
+| `scripts/` | `evaluation_scripts` | `pretrain.py` + `eval_generation.py` + `plot_training.py` |
+| `common/` | `common/` | `langid.py` + `normalize.py` + `sources.py` |
+| `lma/` | `large_model_agent` | `model.py` + `checkpoint.py` + `schedule.py` |
+
+They must not be merged into one dataset: both `scripts/` and `common/` contain a file
+called `clean.py`, and flattening them would silently overwrite one with the other. The
+identifying signatures above are chosen to avoid that collision.
 
 Only `*.py` files are copied out of these, so `__pycache__` and stray files are harmless.
 
@@ -225,6 +245,8 @@ the previous output.
 |---|---|---|
 | `!! NO GPU ATTACHED !!` | accelerator not set | Settings → Accelerator → GPU T4 x2, re-run |
 | `MISSING INPUTS: ...` | a dataset is absent, or its path lacks `hindi`/`nepal` | rename the dataset or re-upload; the message names each missing file |
+| `LANGUAGE CONTAMINATION: ...` | one dataset path contains both `hindi` and `nepal` | split the languages into separate datasets, or rename so each path names one language |
+| `code for lma/ (no input directory holds ...)` | a code dataset is missing or partial | re-upload that package; the message lists the modules it looked for |
 | `corpus/config vocabulary mismatch` | `.bin` files packed with a different tokenizer than `model.json` expects | re-pack, or fix `vocab_size` in `model.json` |
 | `CUDA out of memory` | another process, or an unlucky allocation | set `MICRO_BATCH = 16`; dynamics are unchanged |
 | loss becomes `nan` | fp16 underflow | set `AMP_DTYPE = "float32"`, ~30% slower |
