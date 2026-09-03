@@ -41,3 +41,11 @@ drive_upload/
 
 # Staging area for the Phase 1 artifacts downloaded from Google Drive.
 incoming/
+
+# --- Pretrained checkpoints (~280 MB each) ---
+# Produced on Kaggle, extracted here for local evaluation and plotting. They go to
+# Google Drive with links in the README; the training logs and figures beside them
+# ARE committed.
+checkpoints/
+*.pt
+*.tar.gz

@@ -187,6 +187,10 @@ def score(
 
     scores = {
         "bleu": bleu.score,
+        # The spec asks for the n-gram order explicitly. sacrebleu's signature string
+        # does not carry it, so record it as its own field rather than leaving a reader
+        # to infer BLEU-4 from the length of the precisions list.
+        "bleu_ngram_order": bleu_metric.max_ngram_order,
         "bleu_signature": str(bleu_metric.get_signature()),
         "bleu_precisions": bleu.precisions,
         "chrf": chrf.score,
