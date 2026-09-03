@@ -1,0 +1,22 @@
+{
+  "_comment": "Model H — Hindi. Architecture is identical to the other language's by design: both Phase 1 vocabularies are 16,000, so nothing forces them apart, and holding shape constant makes the corpus the only variable in the H-vs-L comparison. Keys beginning with '_' are documentation and are ignored by ModelConfig.from_json.",
+  "_language": "Hindi (higher-resource)",
+  "_vocabulary": "16,000, from the Phase 1 SentencePiece BPE model at hindi/tokenizer/hi.model. Verified byte-identical to the copy in the Drive artifacts, and round-trips held-out text with zero unknown tokens.",
+  "_parameter_budget": "24,298,176 trainable parameters against the assignment's ~25M target. The token embedding is 7,168,000 of that — 29.5%. A 32,000 vocabulary would have spent 14,336,000 here and left far less for depth, which is why the smaller vocabulary is worth its slightly higher fertility.",
+  "_depth_vs_width": "448 x 7 gives an aspect ratio (d_model / n_layer) of 64.0, the same as GPT-2 small's 768/12. Alternatives at the same budget were 384 x 10 (24.09M, aspect 38.4) and 512 x 5 (24.22M, aspect 102.4). The 512 variant is too shallow to compose much; 384 x 10 is a reasonable deeper option but costs more sequential layers per step on a single T4 for no measured gain at this scale. 448 divides evenly into 7 heads of 64, the width at which attention kernels are efficient.",
+  "_positional_scheme": "Learned absolute. Chosen over sinusoidal or rotary for being fully explainable end to end, and because a learned table makes the context ceiling explicit: there is no row to look up beyond position max_seq_len, so the model simply cannot be run on a longer sequence.",
+  "_norm_placement": "Pre-norm. The residual stream stays an unbroken identity path from embeddings to final norm, so gradients reach early layers without traversing a normalisation. Post-norm at this depth needs a far more carefully tuned warmup.",
+
+  "vocab_size": 16000,
+  "n_layer": 7,
+  "n_head": 7,
+  "d_model": 448,
+  "d_ff": 1792,
+  "max_seq_len": 512,
+  "dropout": 0.1,
+  "attn_dropout": 0.1,
+  "embd_dropout": 0.1,
+  "bias": true,
+  "tie_weights": true,
+  "init_std": 0.02
+}

@@ -1,0 +1,24 @@
+nohup .venv/bin/python -m scripts.scrape \
+    --lang hi --out data/manual/hi \
+    --sources jansatta thewirehindi \
+    --limit 300000 --workers 4 --delay 0.25 \
+    > logs/hi-scrape.log 2>&1 &
+
+nohup .venv/bin/python -m scripts.scrape \
+    --lang ne --out data/manual/ne \
+    --sources onlinekhabar \
+    --limit 300000 --workers 4 --delay 0.25 \
+    > logs/ne-scrape.log 2>&1 &
+
+nohup .venv/bin/python -m scripts.clean \
+  --lang hi \                         
+  --config hindi/configs/dataset.json \
+  --boilerplate report/hindi/boilerplate_lines.json \
+  > logs/hi-clean-v2.log 2>&1 &
+
+nohup .venv/bin/python -m scripts.clean \
+  --lang ne \                         
+  --config nepali/configs/dataset.json \
+  --boilerplate report/nepali/boilerplate_lines.json \
+  > logs/ne-clean-v2.log 2>&1 &
+  

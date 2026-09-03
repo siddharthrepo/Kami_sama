@@ -1,0 +1,23 @@
+{
+  "_comment": "Pretraining hyperparameters for Model L (Nepali). Identical to the other language's, so any difference in the learning curves reflects the corpus rather than the schedule.",
+  "_token_budget": "16,000 steps x 32,768 tokens = 524,288,000 tokens, 0.73 of one pass over this language's 716,450,642-token training split. That is close to the compute-optimal ~20 tokens per parameter for a 24.3M-parameter model, and it means no document is seen twice.",
+  "_batch_note": "tokens_per_step is the quantity held fixed; micro_batch_size is only a memory knob. On a smaller GPU, halve micro_batch_size and gradient accumulation doubles automatically, leaving the effective batch and the learning dynamics unchanged.",
+  "_lr_note": "6e-4 peak with 500 warmup steps. A 25M model can often take 1e-3, but this project gets one training run per language with no budget for a restart, so the more conservative and well-trodden value was chosen.",
+  "_checkpoint_note": "Every 1,000 steps. Kaggle terminates sessions at twelve hours and can pre-empt sooner, so this bounds the work lost to an interruption to a few minutes.",
+  "tokens_per_step": 32768,
+  "micro_batch_size": 32,
+  "max_steps": 16000,
+  "learning_rate": 0.0006,
+  "min_lr_ratio": 0.1,
+  "warmup_steps": 500,
+  "weight_decay": 0.1,
+  "beta1": 0.9,
+  "beta2": 0.95,
+  "grad_clip": 1.0,
+  "eval_every": 500,
+  "eval_batches": 100,
+  "checkpoint_every": 1000,
+  "keep_last_n": 2,
+  "seed": 1337,
+  "amp_dtype": "float16"
+}

@@ -38,3 +38,6 @@ __pycache__/
 # Archives staged for Google Drive upload
 drive_upload/
 *.tar
+
+# Staging area for the Phase 1 artifacts downloaded from Google Drive.
+incoming/

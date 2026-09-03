@@ -1,0 +1,14 @@
+
+=== vocabulary size comparison ===
+     vocab  fertility  chars/tok   byte_fb  vocab_used
+     8,000      1.548       4.09  1.9343%      97.4%
+    12,000      1.442       4.39  2.0767%      97.9%
+    16,000      1.381       4.59  2.1684%      97.9%
+    24,000      1.310       4.84  2.2871%      97.3%
+
+=== vocabulary size comparison ===
+     vocab  fertility  chars/tok   byte_fb  vocab_used
+     8,000      1.374       3.66  1.2189%      95.9%
+    12,000      1.300       3.87  1.2881%      95.7%
+    16,000      1.259       3.99  1.3297%      94.8%
+    24,000      1.216       4.13  1.3770%      91.0%

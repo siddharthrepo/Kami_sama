@@ -1,0 +1,29 @@
+# Phase 1 — data collection, preprocessing and tokenizer construction.
+#
+# Install with:
+#   python3 -m venv .venv
+#   .venv/bin/pip install -r requirements.txt
+#
+# Note on pretrained models: fastText's lid.176 language identifier and trafilatura's
+# extraction heuristics are used for DATA CLEANING only. Neither is a language model nor
+# a tokenizer, so neither falls under the assignment's prohibition on pretrained LMs and
+# pretrained tokenizers. The tokenizers in hindi/tokenizer/ and nepali/tokenizer/ are
+# trained from scratch by scripts/train_tokenizer.py.
+
+# --- Collection ---
+httpx>=0.28            # async HTTP client for the scraper
+trafilatura>=2.0       # main-content extraction from HTML (strips nav/ads/boilerplate)
+datasets>=3.0          # streaming access to HuggingFace corpora
+huggingface_hub>=0.26  # dataset metadata and repository listing
+
+# --- Storage ---
+zstandard>=0.22        # compressed JSONL shards (~4:1 on Devanagari text)
+
+# --- Cleaning ---
+fasttext-wheel>=0.9.2  # lid.176 language identification (import name: fasttext)
+
+# --- Tokenizer ---
+sentencepiece>=0.2     # BPE training; no pretrained model is loaded
+
+# --- Reporting ---
+matplotlib>=3.8        # figures for the dataset statistics report

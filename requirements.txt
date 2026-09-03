@@ -27,3 +27,13 @@ sentencepiece>=0.2     # BPE training; no pretrained model is loaded
 
 # --- Reporting ---
 matplotlib>=3.8        # figures for the dataset statistics report
+
+# --- Phase 2: model implementation, pretraining, evaluation ---
+#
+# The architecture is built from primitive PyTorch layers only (nn.Linear, nn.Embedding,
+# nn.LayerNorm, nn.Dropout). No nn.Transformer* module, no HuggingFace model class, and
+# no F.scaled_dot_product_attention — attention, the causal mask and the softmax are all
+# written out by hand in lma/model.py.
+torch>=2.2             # tensors, autograd, AdamW, mixed precision
+numpy>=1.26            # memory-mapped uint16 token arrays; RNG for batch order
+sacrebleu>=2.4         # BLEU and chrF with a script-appropriate tokenizer for Devanagari
