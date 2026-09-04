@@ -96,7 +96,11 @@ def collect_statistics(
     totals: list[dict[str, np.ndarray]] = []
     seen = 0
 
-    for batch in stream.sequential_batches(batch_size, seq_len, limit=num_batches):
+    # spread=True for the same reason as in-training validation: the splits are not
+    # shuffled across sources, so 20 batches from the head of the file describe one
+    # kind of text rather than the split as a whole.
+    for batch in stream.sequential_batches(batch_size, seq_len, limit=num_batches,
+                                          spread=True):
         x, _ = to_device(batch, device)
         _, _, attentions = model(x, return_attention=True)
 
@@ -156,11 +160,21 @@ def plot_head_heatmaps(
         language: Language name for the title.
         use_tokens: Label ticks with tokens; when False, use positions.
     """
+    # Wrap into a grid rather than a single row. Seven panels side by side is a figure
+    # five thousand pixels wide, which becomes illegible the moment it is embedded in a
+    # report at page width; four columns keeps each panel readable.
     n = len(heads)
-    fig, axes = plt.subplots(1, n, figsize=(5.2 * n, 5.0), squeeze=False)
+    n_cols = min(4, n)
+    n_rows = -(-n // n_cols)
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(5.2 * n_cols, 5.0 * n_rows),
+                             squeeze=False)
     T = attention.shape[-1]
 
-    for ax, head in zip(axes[0], heads):
+    flat = [ax for row in axes for ax in row]
+    for ax in flat[n:]:
+        ax.axis("off")
+
+    for ax, head in zip(flat, heads):
         weights = attention[0, head].float().cpu().numpy()
         image = ax.imshow(weights, cmap="viridis", aspect="auto", vmin=0.0, origin="upper")
         ax.set_title(f"Layer {layer}, head {head}")
@@ -219,10 +233,21 @@ def main() -> None:
     parser.add_argument("--num-batches", type=int, default=20)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--heads", type=int, nargs="+", default=[0, 1, 2])
+    parser.add_argument("--layers", type=int, nargs="+", default=None,
+                        help="layers to draw heatmaps for. Default: earliest, middle "
+                             "and last. The spec asks for an early and a late layer; "
+                             "the middle one is included because that is where the "
+                             "sharply specialised heads tend to sit, and a figure that "
+                             "skips it understates what the model learned.")
     parser.add_argument("--sentence", default=None, help="override the example sentence")
     parser.add_argument("--max-heatmap-tokens", type=int, default=20)
     parser.add_argument("--out-dir", default=None)
     parser.add_argument("--device", default=None)
+    parser.add_argument("--heatmaps-only", action="store_true",
+                        help="redraw only the example-sentence heatmaps. Needs the "
+                             "checkpoint and tokenizer but not the token stream, so it "
+                             "can regenerate figures locally after the fact -- for "
+                             "instance when the training machine had no Devanagari font.")
     args = parser.parse_args()
 
     root = Path(LANGUAGE_DIRS[args.lang])
@@ -257,11 +282,24 @@ def main() -> None:
     attentions, pieces = attention_for_sentence(
         model, tokenizer, sentence, device=device, max_tokens=args.max_heatmap_tokens
     )
-    early, late = 0, model_config.n_layer - 1
-    for layer in (early, late):
+    layers = args.layers or sorted({0, model_config.n_layer // 2, model_config.n_layer - 1})
+    for layer in layers:
+        if not 0 <= layer < model_config.n_layer:
+            raise SystemExit(f"layer {layer} out of range for a {model_config.n_layer}-layer model")
         path = out_dir / f"{args.lang}_attention_layer{layer}.png"
         plot_head_heatmaps(attentions[layer], pieces, layer, args.heads, path, language, use_tokens)
         print(f"  wrote {path}", flush=True)
+
+    if args.heatmaps_only:
+        # The statistics below need the held-out token stream, which is a multi-gigabyte
+        # file that may not be present on the machine redrawing the figures. The existing
+        # attention_stats.json already holds those numbers, so leave it untouched.
+        if not use_tokens:
+            print("\n  WARNING: still no Devanagari font - the axes will show positions "
+                  "again. Install one (apt-get install fonts-indic) and clear "
+                  "~/.cache/matplotlib/fontlist-*.json before re-running.")
+        print("\nheatmaps only: statistics and attention_stats.json left unchanged")
+        return
 
     # --- aggregate statistics over held-out batches
     stream = TokenStream(tokens_dir / f"{args.split}.bin")

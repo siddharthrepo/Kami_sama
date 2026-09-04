@@ -109,15 +109,41 @@ quota cost, and the second card is simply idle.
 
 ### Run it as a committed job, not an interactive session
 
-Use **Save Version → Save & Run All (Commit)** rather than leaving the interactive editor
-open. A committed run:
-
-- executes headless for up to 12 hours and survives you closing the browser,
-- **persists `/kaggle/working` as a downloadable output.**
-
 An interactive session that times out or drops its connection loses everything in
-`/kaggle/working`, which means losing the entire training run. This has already cost us
-one four-hour run.
+`/kaggle/working` — the entire training run. This has already cost us one four-hour run.
+A **committed** run executes server-side for up to 12 hours, survives closing the
+browser, and persists `/kaggle/working` as a downloadable output.
+
+To start one:
+
+1. Set `LANGUAGE` in cell 2 and **save the edit**. A commit runs the saved source, not
+   whatever the live session happens to hold in memory.
+2. Confirm Accelerator is **GPU T4 x2** and Internet is **On**. Both travel with the
+   notebook into the batch run.
+3. Top right → **Save Version** → **Save & Run All (Commit)** → name it (`hindi-run-1`)
+   → **Save**. *Quick Save* saves without executing; that is not what you want.
+4. Close the browser.
+
+Watch progress under the notebook's **Versions** tab, which shows Running / Complete /
+Failed and streams the live log. When it finishes, open that version's **Output** tab and
+download `phase2-<lang>-results.tar.gz` (~900 MB — `keep_last_n: 2` keeps only two
+rolling checkpoints plus `best.pt`).
+
+**A commit always starts from a clean container.** `/kaggle/working` is empty and nothing
+from an interactive session carries over, so a commit cannot resume a partially-trained
+run — all 16,000 steps must fit in one job. At ~39k tokens/second that is about 3.7 hours
+against a 12-hour cap, so it fits comfortably. This is also why cell 14 correctly reports
+`starting fresh` in every committed run.
+
+**Smoke-test before committing.** Every cell runs with `check=True`, so a single failure
+aborts the job and yields nothing. Run interactively once with `RUN_TRAINING = False` and
+`RUN_EVAL = False`: about three minutes, and it exercises tree assembly, the font
+install, the causal-mask check and the throughput probe. Once those pass, set both back
+to `True`, save, and commit.
+
+**Running both languages at once.** Kaggle caps concurrent GPU sessions. Use **Copy &
+Edit** to make a second notebook with `LANGUAGE = "ne"` and commit both; if you exceed
+the cap the second queues rather than failing, so it still runs unattended.
 
 ---
 
@@ -212,6 +238,11 @@ uninterrupted run and a resumed one.
 `MAX_MINUTES = 660` exists so the run stops cleanly and writes a final checkpoint at
 11 hours, rather than being killed mid-write at Kaggle's 12-hour limit.
 
+Note that this applies to **interactive** sessions, where `/kaggle/working` persists
+between runs. A committed job always starts from an empty container, so it can never
+resume — see §2. That is not a limitation in practice: one job covers all 16,000 steps
+in about 3.7 hours.
+
 ---
 
 ## 6. What comes out
@@ -234,8 +265,9 @@ report/<lang>/figures/*.png                       loss curve, LR schedule, atten
 Every checkpoint contains model weights, optimizer state, scheduler state, the training
 step, and the full configuration — the five things the assignment requires.
 
-**Download the tarball before starting the other language.** A new committed run replaces
-the previous output.
+Each committed version keeps its own output, so starting the Nepali run does not
+overwrite the Hindi results — older versions stay reachable from the **Versions** tab.
+Download both anyway once they exist, rather than relying on Kaggle to hold them.
 
 ---
 

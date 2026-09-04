@@ -90,7 +90,11 @@ def evaluate(model: GPT, stream: TokenStream, config: TrainConfig, seq_len: int,
     """
     model.eval()
     losses = []
-    batches = stream.sequential_batches(config.micro_batch_size, seq_len, limit=config.eval_batches)
+    # spread=True: sample evenly across the whole split rather than walking its head.
+    # Without it the in-training curve tracks only the first few per cent of the file,
+    # which is not representative and disagrees with the full-split number in eval_lm.
+    batches = stream.sequential_batches(config.micro_batch_size, seq_len,
+                                        limit=config.eval_batches, spread=True)
     for batch in batches:
         x, y = to_device(batch, device)
         with torch.autocast(device_type=device.type, dtype=_autocast_dtype(config, device), enabled=device.type == "cuda"):

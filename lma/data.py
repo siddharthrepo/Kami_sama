@@ -128,9 +128,10 @@ class TokenStream:
         return self._window(offsets, seq_len)
 
     def sequential_batches(
-        self, batch_size: int, seq_len: int, *, limit: int | None = None
+        self, batch_size: int, seq_len: int, *, limit: int | None = None,
+        spread: bool = False,
     ) -> Iterator[tuple[torch.Tensor, torch.Tensor]]:
-        """Iterate non-overlapping windows in order, for evaluation.
+        """Iterate non-overlapping windows deterministically, for evaluation.
 
         Validation and test loss must be comparable between evaluations and between
         the two models, so evaluation walks the stream deterministically rather than
@@ -138,10 +139,23 @@ class TokenStream:
         once, which is what makes the resulting cross-entropy a valid input to
         perplexity and to bits-per-byte.
 
+        ``spread`` exists because a truncated walk is not a representative sample. The
+        splits are not shuffled across sources, so the head of a validation file is one
+        kind of text rather than a cross-section of it. Taking the first ``limit``
+        batches therefore measures a corner of the split: on the Hindi validation set
+        the first 10.7% scored 2.96 nats against 3.35 for the whole thing. With
+        ``spread`` the same number of batches is drawn at evenly spaced offsets across
+        the entire stream, so a cheap in-training estimate tracks the full-split figure
+        instead of drifting from it. It stays fully deterministic, so successive
+        evaluations remain comparable and checkpoint selection is unaffected by noise.
+
         Args:
             batch_size: Windows per batch.
             seq_len: Tokens per window.
             limit: Stop after this many batches. ``None`` walks the whole stream.
+            spread: Space the batches evenly across the stream instead of taking the
+                first ``limit``. Ignored when ``limit`` is ``None`` or already covers
+                the stream.
 
         Yields:
             ``(x, y)`` int64 tensors. The final partial batch is dropped, so every
@@ -149,14 +163,25 @@ class TokenStream:
         """
         stride = seq_len * batch_size
         usable = len(self.tokens) - 1
-        produced = 0
+        available = max(0, (usable - stride) // stride + 1)
 
-        for start in range(0, usable - stride + 1, stride):
+        if limit is None or not spread or limit >= available:
+            produced = 0
+            for start in range(0, usable - stride + 1, stride):
+                offsets = np.arange(start, start + stride, seq_len)
+                yield self._window(offsets, seq_len)
+                produced += 1
+                if limit is not None and produced >= limit:
+                    return
+            return
+
+        # Evenly spaced batch indices, first and last inclusive. Integer arithmetic
+        # keeps this reproducible across platforms and numpy versions.
+        for i in range(limit):
+            index = (i * (available - 1)) // (limit - 1) if limit > 1 else 0
+            start = index * stride
             offsets = np.arange(start, start + stride, seq_len)
             yield self._window(offsets, seq_len)
-            produced += 1
-            if limit is not None and produced >= limit:
-                return
 
 
 def to_device(
