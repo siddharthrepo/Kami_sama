@@ -27,7 +27,7 @@ TINY = ModelConfig(vocab_size=257, n_layer=3, n_head=4, d_model=64, d_ff=256, ma
 
 def test_analytic_parameter_count_matches_model() -> None:
     """The config's arithmetic must equal what PyTorch actually allocates."""
-    for config in (TINY, ModelConfig(vocab_size=32_000)):
+    for config in (TINY, ModelConfig(vocab_size=16_000)):
         model = GPT(config)
         predicted = config.count_parameters()
         assert model.num_parameters() == predicted["total"], (
@@ -39,7 +39,7 @@ def test_analytic_parameter_count_matches_model() -> None:
 
 def test_production_config_is_within_budget() -> None:
     """The shipped architecture must sit under the assignment's ~25M target."""
-    config = ModelConfig(vocab_size=32_000)
+    config = ModelConfig(vocab_size=16_000)
     total = config.count_parameters()["total"]
     assert 24_000_000 <= total <= 25_000_000, f"{total:,} parameters is off budget"
 
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         if name.startswith("test_") and callable(fn):
             fn()
             print(f"PASS  {name}")
-    config = ModelConfig(vocab_size=32_000)
+    config = ModelConfig(vocab_size=16_000)
     print()
     for key, value in config.count_parameters().items():
         print(f"  {key:22s} {value:>12,}")

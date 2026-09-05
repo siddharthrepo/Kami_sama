@@ -188,7 +188,7 @@ def main() -> None:
 
     for lang in languages:
         root = Path(LANGUAGE_DIRS[lang])
-        log_path = Path(args.log) if args.log else root / "checkpoints" / "train_log.jsonl"
+        log_path = Path(args.log) if args.log else Path("checkpoints") / root.name / "train_log.jsonl"
         try:
             series = read_log(log_path)
         except FileNotFoundError as exc:

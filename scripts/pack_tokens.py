@@ -52,8 +52,8 @@ from common.schema import read_shards  # noqa: E402
 
 SPLITS = ("train", "validation", "test")
 
-# uint16 addresses 0..65,535. Both vocabularies are 32,000, so this is safe and halves
-# the on-disk size relative to int32 — 1.3 GB instead of 2.6 GB per language.
+# uint16 addresses 0..65,535. Both vocabularies are 16,000, so this is safe and halves
+# the on-disk size relative to int32 — about 1.5 GB instead of 3.0 GB per language.
 DTYPE = np.uint16
 MAX_VOCAB_FOR_DTYPE = np.iinfo(DTYPE).max + 1
 

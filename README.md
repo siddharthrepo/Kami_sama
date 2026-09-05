@@ -25,14 +25,19 @@ separated by Unicode range alone. That cost is measurable: language filtering re
 
 | | Hindi (Model H) | Nepali (Model L) |
 |---|---|---|
-| Documents | 947,298 | 1,278,483 |
-| Words | 535,501,269 | 506,993,066 |
-| **Tokens** | **662,356,265** | **659,293,660** |
-| **Manual tokens** | **185,075,090 (27.94%)** | **168,487,902 (25.56%)** |
-| Vocabulary | 32,000 | 32,000 |
-| Fertility (tokens/word) | 1.237 | 1.300 |
-| Characters per token | 4.10 | 4.96 |
-| Vocabulary utilisation | 99.6% | 99.7% |
+| Documents | 1,063,900 | 1,331,446 |
+| Words | 587,959,968 | 527,408,637 |
+| **Tokens** | **768,048,386** | **746,342,222** |
+| **Manual tokens** | **214,243,269 (27.89%)** | **163,321,796 (21.88%)** |
+| Vocabulary | 16,000 | 16,000 |
+| Fertility (tokens/word) | 1.306 | 1.415 |
+| Characters per token | 3.87 | 4.56 |
+| Vocabulary utilisation | 94.8% | 97.9% |
+
+> The vocabulary was reduced from the 32,000 selected in Phase 1 to **16,000** for
+> Phase 2. Under weight tying the embedding matrix is `vocab_size x d_model`, so at
+> 32,000 it would have consumed 14,336,000 of the ~25M parameter budget. See
+> `report/phase2.md` §0.
 
 Both corpora exceed the ~500M token target, and both exceed the required 20% manual
 collection share. Token counts are **measured** by encoding the corpus with the trained
@@ -161,6 +166,29 @@ language model nor a tokenizer, so neither falls under the assignment's prohibit
 The tokenizers in `hindi/tokenizer/` and `nepali/tokenizer/` are trained from scratch by
 `scripts/train_tokenizer.py`.
 
+## Phase 2 results
+
+Two independent ~24.3M-parameter decoder-only Transformers, 16,000 vocabulary, 7 layers
+x 7 heads x 448 dimensions, 512 context, trained on 524,288,000 tokens each
+(0.71 / 0.73 epochs -- no document seen twice).
+
+| | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| Parameters | 24,298,176 | 24,298,176 |
+| Validation perplexity | **28.43** | **45.23** |
+| Validation bits per byte | **0.4930** | **0.4527** |
+| Test perplexity | 28.23 | 45.09 |
+| Test bits per byte | 0.4916 | 0.4527 |
+| Bits per character | 1.2099 | 1.1991 |
+| BLEU-4 @ temperature 0.5 | 3.78 | 2.21 |
+| chrF @ temperature 1.0 | 22.42 | 25.10 |
+
+Perplexity and bits-per-byte disagree about which model is better, because Nepali tokens
+carry more text (12.15 bytes/token against 9.80). Normalised to bits per character the
+two models are 0.9% apart. Full analysis in **[`report/phase2.md`](report/phase2.md)**.
+
+---
+
 ## Google Drive links
 
 Produced by `scripts/package_for_drive.py` (default `--profile full`, ~11.1 GB total).
@@ -180,6 +208,8 @@ _Links to be added before submission._
 | `nepali-splits.tar` | Nepali train/validation/test — input to Phase 2 | 1.5 GB | _pending_ |
 | `tokenizers.tar` | Both tokenizers, all four candidate vocab sizes, training samples | 2.4 GB | _pending_ |
 | `reports-and-logs.tar` | Statistics JSON, figures, phase report, all run logs | 5 MB | _pending_ |
+| `hindi-model-checkpoint.tar` | Model H `best.pt` + step checkpoints + training log | 803 MB | _pending_ |
+| `nepali-model-checkpoint.tar` | Model L `best.pt` + step checkpoints + training log | 803 MB | _pending_ |
 
 The trained tokenizers (`hi.model`, `hi.vocab`, `ne.model`, `ne.vocab` — 3.3 MB total) are
 small enough to be committed directly and are in this repository; the Drive copy is a

@@ -1,7 +1,7 @@
 """Batching over a packed token stream.
 
 Phase 1 produced text; ``scripts/pack_tokens.py`` turns that text into a flat array of
-token ids stored as ``uint16``. Both vocabularies are 32,000, comfortably under 65,536,
+token ids stored as ``uint16``. Both vocabularies are 16,000, comfortably under 65,536,
 so two bytes per token suffices — half what ``int32`` would cost, which matters because
 the array is memory-mapped and the operating system's page cache is the only thing
 standing between training and disk latency.

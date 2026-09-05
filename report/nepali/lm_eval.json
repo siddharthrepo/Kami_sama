@@ -1,0 +1,33 @@
+{
+  "language": "ne",
+  "checkpoint": "/kaggle/working/checkpoints/nepali/best.pt",
+  "step": 16000,
+  "tokens_seen": 524288000,
+  "parameters": 24298176,
+  "vocab_size": 16000,
+  "context": 512,
+  "splits": {
+    "validation": {
+      "cross_entropy_nats": 3.811687634886135,
+      "perplexity": 45.226700655001174,
+      "bits_per_byte": 0.4527390779543869,
+      "tokens_scored": 14819328,
+      "tokens_in_split": 14825389,
+      "fraction_covered": 0.9995911743024078,
+      "utf8_bytes_scored": 179999944,
+      "batches": 1809,
+      "seconds": 131.4
+    },
+    "test": {
+      "cross_entropy_nats": 3.8087305128412843,
+      "perplexity": 45.09315733074737,
+      "bits_per_byte": 0.4526958953952534,
+      "tokens_scored": 15114240,
+      "tokens_in_split": 15119345,
+      "fraction_covered": 0.9996623530979682,
+      "utf8_bytes_scored": 183457107,
+      "batches": 1845,
+      "seconds": 133.2
+    }
+  }
+}

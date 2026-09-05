@@ -2,7 +2,7 @@
 
 Two independent models are configured through this module — Hindi (Model H) and Nepali
 (Model L) — but the *shape* of both is deliberately identical. Phase 1 settled both
-languages on a 32,000-piece vocabulary, so nothing forces the architectures apart, and
+languages on a 16,000-piece vocabulary, so nothing forces the architectures apart, and
 holding them constant means any difference in perplexity, generation quality or
 attention behaviour is attributable to the corpora rather than to the model. That is
 precisely the comparison this project exists to make.
@@ -26,9 +26,9 @@ from pathlib import Path
 class ModelConfig:
     """Architecture of one decoder-only (GPT-style) Transformer.
 
-    The defaults describe the configuration chosen for this project: 384 model
-    dimensions, 7 layers and 6 heads, which lands at 24,906,624 parameters against a
-    32,000 vocabulary — just under the ~25M target.
+    The defaults describe the configuration chosen for this project: 448 model
+    dimensions, 7 layers and 7 heads, which lands at 24,298,176 parameters against a
+    16,000 vocabulary — just under the ~25M target.
 
     Attributes:
         vocab_size: Size of this language's vocabulary. Read from the Phase 1
@@ -48,8 +48,8 @@ class ModelConfig:
         embd_dropout: Dropout applied to the summed token+position embeddings.
         bias: Whether ``nn.Linear`` layers carry a bias term. LayerNorm always does.
         tie_weights: Share one matrix between the input embedding and the output
-            projection. With a 32,000 vocabulary and ``d_model`` 384 this saves
-            12,288,000 parameters — 33% of what the untied model would cost — and
+            projection. With a 16,000 vocabulary and ``d_model`` 448 this saves
+            7,168,000 parameters — 22.8% of what the untied model would cost — and
             spends the savings on depth instead.
         init_std: Standard deviation of the normal initialiser. Output projections
             inside blocks are additionally scaled by ``1/sqrt(2 * n_layer)``; see
@@ -58,9 +58,9 @@ class ModelConfig:
 
     vocab_size: int
     n_layer: int = 7
-    n_head: int = 6
-    d_model: int = 384
-    d_ff: int = 1536
+    n_head: int = 7
+    d_model: int = 448
+    d_ff: int = 1792
     max_seq_len: int = 512
     dropout: float = 0.1
     attn_dropout: float = 0.1

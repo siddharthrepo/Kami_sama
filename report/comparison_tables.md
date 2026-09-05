@@ -2,96 +2,97 @@
      script instead, so the report cannot drift from the artifacts. -->
 
 ## Model and training configuration
-|  | Model H (Hindi) |
-|---|---|
-| Parameters (total) | 24,298,176 |
-| Parameters (non-embedding) | 16,900,800 |
-| Vocabulary | 16,000 |
-| Layers / heads / d_model | 7 / 7 / 448 |
-| Context length | 512 |
-| Optimiser steps | 16,000 |
-| Training tokens seen | 524,288,000 |
-| Peak learning rate | 6.0e-04 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| Parameters (total) | 24,298,176 | 24,298,176 |
+| Parameters (non-embedding) | 16,900,800 | 16,900,800 |
+| Vocabulary | 16,000 | 16,000 |
+| Layers / heads / d_model | 7 / 7 / 448 | 7 / 7 / 448 |
+| Context length | 512 | 512 |
+| Optimiser steps | 16,000 | 16,000 |
+| Training tokens seen | 524,288,000 | 524,288,000 |
+| Peak learning rate | 6.0e-04 | 6.0e-04 |
 
 ## Corpus and tokenizer (Phase 1)
-|  | Model H (Hindi) |
-|---|---|
-| Training documents | 1,021,431 |
-| Training words | 553,999,202 |
-| Manual-collection share of words | 29.1% |
-| Tokenizer fertility (tokens/word) | 1.259 |
-| Characters per token | 3.99 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| Training documents | 1,021,431 | 1,278,292 |
+| Training words | 553,999,202 | 500,411,066 |
+| Manual-collection share of words | 29.1% | 22.4% |
+| Tokenizer fertility (tokens/word) | 1.259 | 1.381 |
+| Characters per token | 3.99 | 4.59 |
 
 ## Intrinsic language-modelling metrics
-|  | Model H (Hindi) |
-|---|---|
-| Validation — Cross-entropy (nats) | 3.3476 |
-| Validation — Perplexity | 28.43 |
-| Validation — Bits per byte | 0.4930 |
-| Test — Cross-entropy (nats) | 3.3402 |
-| Test — Perplexity | 28.23 |
-| Test — Bits per byte | 0.4916 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| Validation — Cross-entropy (nats) | 3.3476 | 3.8117 |
+| Validation — Perplexity | 28.43 | 45.23 |
+| Validation — Bits per byte | 0.4930 | 0.4527 |
+| Test — Cross-entropy (nats) | 3.3402 | 3.8087 |
+| Test — Perplexity | 28.23 | 45.09 |
+| Test — Bits per byte | 0.4916 | 0.4527 |
 
 ## Generation quality and diversity
 **greedy**
 
-|  | Model H (Hindi) |
-|---|---|
-| BLEU | 2.76 |
-| chrF | 18.13 |
-| chrF++ | 16.10 |
-| ROUGE-L (F1) | 0.1312 |
-| Distinct-1 (tokens) | 0.0547 |
-| Distinct-2 (tokens) | 0.1330 |
-| Repetition, 4-gram (tokens) | 0.7515 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| BLEU | 2.76 | 1.60 |
+| chrF | 18.13 | 18.49 |
+| chrF++ | 16.10 | 15.76 |
+| ROUGE-L (F1) | 0.1312 | 0.0947 |
+| Distinct-1 (tokens) | 0.0547 | 0.0627 |
+| Distinct-2 (tokens) | 0.1330 | 0.1281 |
+| Repetition, 4-gram (tokens) | 0.7515 | 0.7968 |
 
 **temp0.5**
 
-|  | Model H (Hindi) |
-|---|---|
-| BLEU | 3.78 |
-| chrF | 21.90 |
-| chrF++ | 19.84 |
-| ROUGE-L (F1) | 0.1426 |
-| Distinct-1 (tokens) | 0.0907 |
-| Distinct-2 (tokens) | 0.2869 |
-| Repetition, 4-gram (tokens) | 0.3910 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| BLEU | 3.78 | 2.21 |
+| chrF | 21.90 | 22.53 |
+| chrF++ | 19.84 | 19.41 |
+| ROUGE-L (F1) | 0.1426 | 0.1107 |
+| Distinct-1 (tokens) | 0.0907 | 0.1212 |
+| Distinct-2 (tokens) | 0.2869 | 0.3410 |
+| Repetition, 4-gram (tokens) | 0.3910 | 0.3956 |
 
 **temp1.0**
 
-|  | Model H (Hindi) |
-|---|---|
-| BLEU | 1.90 |
-| chrF | 22.42 |
-| chrF++ | 20.02 |
-| ROUGE-L (F1) | 0.1217 |
-| Distinct-1 (tokens) | 0.2243 |
-| Distinct-2 (tokens) | 0.7213 |
-| Repetition, 4-gram (tokens) | 0.0118 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| BLEU | 1.90 | 1.31 |
+| chrF | 22.42 | 25.10 |
+| chrF++ | 20.02 | 21.13 |
+| ROUGE-L (F1) | 0.1217 | 0.0962 |
+| Distinct-1 (tokens) | 0.2243 | 0.2848 |
+| Distinct-2 (tokens) | 0.7213 | 0.8349 |
+| Repetition, 4-gram (tokens) | 0.0118 | 0.0123 |
 
 **temp1.5**
 
-|  | Model H (Hindi) |
-|---|---|
-| BLEU | 0.36 |
-| chrF | 19.73 |
-| chrF++ | 16.16 |
-| ROUGE-L (F1) | 0.0631 |
-| Distinct-1 (tokens) | 0.3638 |
-| Distinct-2 (tokens) | 0.9632 |
-| Repetition, 4-gram (tokens) | 0.0002 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| BLEU | 0.36 | 0.19 |
+| chrF | 19.73 | 24.41 |
+| chrF++ | 16.16 | 19.29 |
+| ROUGE-L (F1) | 0.0631 | 0.0467 |
+| Distinct-1 (tokens) | 0.3638 | 0.3763 |
+| Distinct-2 (tokens) | 0.9632 | 0.9727 |
+| Repetition, 4-gram (tokens) | 0.0002 | 0.0001 |
 
 ## Attention summary
-|  | Model H (Hindi) |
-|---|---|
-| Heads classified *local* | 15 / 49 |
-| Heads classified *mixed* | 16 / 49 |
-| Heads classified *long-range* | 1 / 49 |
-| Heads classified *diffuse* | 17 / 49 |
-| Mean entropy across heads (nats) | 3.208 |
-| Mean attention distance (positions) | 63.65 |
-| Mean weight on previous token | 0.1181 |
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| Heads classified *local* | 15 / 49 | 16 / 49 |
+| Heads classified *mixed* | 16 / 49 | 14 / 49 |
+| Heads classified *long-range* | 1 / 49 | 2 / 49 |
+| Heads classified *diffuse* | 17 / 49 | 17 / 49 |
+| Mean entropy across heads (nats) | 3.208 | 3.255 |
+| Mean attention distance (positions) | 63.65 | 64.05 |
+| Mean weight on previous token | 0.1181 | 0.1145 |
 
 Most specialised head in each model (lowest entropy):
 
 - Model H (Hindi): layer 3, head 3 — entropy 0.163 nats, 88.0% of its mass on the previous token, mean distance 1.37
+- Model L (Nepali): layer 4, head 1 — entropy 0.112 nats, 95.6% of its mass on the previous token, mean distance 1.73

@@ -21,6 +21,35 @@ is shared, which the assignment permits.
 Nothing is downloaded from the internet except three pip packages and a font, so the
 notebook works with Kaggle's internet toggle on. It **does** need internet on — see §2.
 
+### From Phase 1 output to packed tokens
+
+Phase 2 does **not** tokenize anything. It reads flat `uint16` arrays, so the bridge from
+Phase 1 has to be run once on your own machine before any upload:
+
+```bash
+python -m scripts.pack_tokens --config hindi/configs/dataset.json
+python -m scripts.pack_tokens --config nepali/configs/dataset.json
+```
+
+Each takes 10-15 minutes and reads `<lang>/data/splits/{train,validation,test}/*.jsonl.zst`
+with the Phase 1 SentencePiece model, writing `<lang>/data/tokens/{split}.bin` plus a
+`{split}.meta.json` beside it. On a laptop add `--workers 3`; the default is cores-minus-two
+and will make the machine unusable while it runs.
+
+Check `train.meta.json` before uploading 1.5 GB of anything:
+
+- `vocab_size` must equal the vocabulary of the tokenizer you trained in Phase 1, and must
+  match `vocab_size` in `configs/model.json`. A mismatch trains an embedding table addressing
+  token ids the tokenizer never emits, and nothing downstream will notice.
+- `n_tokens` should comfortably exceed 524,288,000, which is what `train.json` spends
+  (16,000 steps x 32,768). Below that you are training for more than one epoch; lower
+  `max_steps` so no document is seen twice. The trainer prints the epoch fraction at startup
+  as `planned tokens=... (0.NN epochs)` -- check it there too.
+
+`n_tokens` in the meta file counts one end-of-document token per document more than the
+content-token totals quoted in `configs/train.json`; both are correct, they measure
+different things.
+
 ---
 
 ## 1. Kaggle Datasets to create
