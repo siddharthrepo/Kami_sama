@@ -7,8 +7,8 @@
   "trained_on": "train split only",
   "training_sample_lines": 2000000,
   "held_out_documents": 3000,
-  "selection_rule": "candidates capped at vocab_size <= 24,000 for the ~25M-parameter budget (embedding matrix is vocab_size x d_model under weight tying), then the smallest vocabulary whose held-out fertility is within 3% of the best remaining",
-  "max_vocab_size_considered": 24000,
+  "selection_rule": "candidates capped by the ~25M-parameter budget: under weight tying the embedding is vocab_size x d_model, so at d_model=448 the non-embedding parameters (17,130,176) leave 7,869,824 for the table and the largest affordable vocabulary is 17,566. Among the candidates at or below that cap, the one with the lowest held-out fertility is selected. 24,000 was trained and measured for reference but is not affordable: it would total 27,882,176 parameters, 11.5% over target.",
+  "max_vocab_size_considered": 17566,
   "selected_vocab_size": 16000,
   "candidates": [
     {
@@ -63,5 +63,14 @@
       "vocab_utilisation": 0.97275,
       "train_seconds": 63.6
     }
-  ]
+  ],
+  "parameter_budget_note": {
+    "d_model": 448,
+    "non_embedding_parameters": 17130176,
+    "budget": 25000000,
+    "embedding_allowance": 7869824,
+    "max_affordable_vocab": 17566,
+    "selected_total_parameters": 24298176,
+    "next_candidate_total_parameters": 27882176
+  }
 }

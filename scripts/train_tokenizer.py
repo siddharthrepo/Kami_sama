@@ -22,7 +22,7 @@ Design decisions worth stating:
 
 Example:
     python -m scripts.train_tokenizer --config hindi/configs/dataset.json \\
-        --vocab-sizes 8000 16000 32000 48000
+        --vocab-sizes 8000 12000 16000 24000
 """
 
 from __future__ import annotations
@@ -302,17 +302,23 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--config", required=True,
                         help="Path to the language's dataset config JSON.")
     parser.add_argument("--vocab-sizes", type=int, nargs="+",
-                        default=[8000, 16000, 32000, 48000],
+                        default=[8000, 12000, 16000, 24000],
                         help="Candidate vocabulary sizes to train and compare.")
     parser.add_argument("--sample-lines", type=int, default=3_000_000,
                         help="Lines sampled from the train split for training.")
     parser.add_argument("--eval-docs", type=int, default=3000,
                         help="Validation documents used for held-out evaluation.")
-    parser.add_argument("--max-vocab-size", type=int, default=32000,
+    # Derived, not guessed. Under weight tying the embedding is vocab_size x d_model.
+    # At d_model=448 the rest of the model costs 17,130,176 parameters, so a 25,000,000
+    # budget leaves 7,869,824 for the table: 7,869,824 // 448 = 17,566. A 24,000
+    # vocabulary would total 27,882,176 -- 11.5% over target -- so it is trained for
+    # comparison but is never selectable.
+    parser.add_argument("--max-vocab-size", type=int, default=17566,
                         help="Largest vocabulary the parameter budget allows. With "
                              "weight tying the embedding matrix is vocab_size x "
                              "d_model, so this caps how much of a ~25M-parameter model "
-                             "the lookup table may consume.")
+                             "the lookup table may consume. Default derived for "
+                             "d_model=448 against a ~25M budget.")
     parser.add_argument("--fertility-tolerance", type=float, default=0.03,
                         help="How much worse than the best fertility a smaller "
                              "vocabulary may be and still be selected.")

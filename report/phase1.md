@@ -35,16 +35,16 @@ trained on it — not estimated from word counts.
 
 | | Hindi (Model H) | Nepali (Model L) |
 |---|---|---|
-| Documents | 947,298 | 1,278,483 |
-| Words | 535,501,269 | 506,993,066 |
-| Characters | 2.72B | 3.27B |
-| **Tokens** | **662,356,265** | **659,293,660** |
-| **Manual tokens** | **185,075,090** | **168,487,902** |
-| **Manual share** | **27.94%** | **25.56%** |
-| Target ~500M tokens | ✅ +32% | ✅ +32% |
+| Documents | 1,063,900 | 1,331,446 |
+| Words | 587,959,968 | 527,408,637 |
+| Characters | 2.97B | 3.40B |
+| **Tokens** | **768,048,386** | **746,342,222** |
+| **Manual tokens** | **214,243,269** | **163,321,796** |
+| **Manual share** | **27.89%** | **21.88%** |
+| Target ~500M tokens | ✅ +54% | ✅ +49% |
 | Requirement ≥20% manual | ✅ | ✅ |
 
-The two corpora came out nearly equal in token count (662.4M vs 659.3M), which is
+The two corpora came out close in token count (768.0M vs 746.3M, 2.9% apart), which is
 convenient for later phases: differences in model behaviour will reflect data *quality and
 diversity* rather than sheer quantity.
 
@@ -236,7 +236,7 @@ their opening; see §8.
 | Wrong language | 31 | 7,832 |
 | Exact duplicates | 2,172 | 23,087 |
 | Near-duplicates | 3,940 | 16,300 |
-| **Kept** | **947,298 (98.6%)** | **1,278,483 (96.3%)** |
+| **Kept** | **1,063,900 (98.6%)** | **1,331,446 (96.3%)** |
 | Foreign lines dropped | 421,407 | 62,683 |
 
 The quality gate requires at least 120 words on at least 3 prose lines, applied *after*
@@ -288,7 +288,7 @@ vocabulary.
 | Setting | Value | Reason |
 |---|---|---|
 | `model_type` | `bpe` | |
-| `vocab_size` | 32,000 | see §6.2 |
+| `vocab_size` | 16,000 | see §6.2 |
 | `character_coverage` | 0.9995 | the last 0.05% is emoji and stray scripts; covering it would waste slots |
 | `byte_fallback` | enabled | nothing is ever unrepresentable, so the true unknown rate is zero |
 | `normalization_rule_name` | `identity` | text is already NFC-normalised by our pipeline; letting SentencePiece renormalise would undo that |
@@ -305,49 +305,68 @@ Four candidates were trained and evaluated on held-out validation text.
 
 **Hindi**
 
-| Vocab | Fertility | Byte fallback | Vocab used |
-|---|---|---|---|
-| 8,000 | 1.388 | 1.71% | 96.5% |
-| 16,000 | 1.272 | 1.86% | 95.8% |
-| **32,000** | **1.205** | **1.97%** | **89.0%** |
-| 48,000 | 1.181 | 2.01% | 78.6% |
+| Vocab | Fertility | Chars/token | Byte fallback | Vocab used | Model total |
+|---|---|---|---|---|---|
+| 8,000 | 1.374 | 3.659 | 1.22% | 95.9% | 20,714,176 |
+| 12,000 | 1.300 | 3.867 | 1.29% | 95.7% | 22,506,176 |
+| **16,000** | **1.259** | **3.992** | **1.33%** | **94.8%** | **24,298,176** |
+| 24,000 | 1.216 | 4.134 | 1.38% | 91.0% | 27,882,176 ❌ |
 
 **Nepali**
 
-| Vocab | Fertility | Byte fallback | Vocab used |
-|---|---|---|---|
-| 8,000 | 1.552 | 1.91% | 97.6% |
-| 16,000 | 1.385 | 2.14% | 98.0% |
-| **32,000** | **1.272** | **2.33%** | **96.2%** |
-| 48,000 | 1.226 | 2.42% | 91.5% |
+| Vocab | Fertility | Chars/token | Byte fallback | Vocab used | Model total |
+|---|---|---|---|---|---|
+| 8,000 | 1.548 | 4.091 | 1.93% | 97.4% | 20,714,176 |
+| 12,000 | 1.442 | 4.392 | 2.08% | 97.9% | 22,506,176 |
+| **16,000** | **1.381** | **4.586** | **2.17%** | **97.9%** | **24,298,176** |
+| 24,000 | 1.310 | 4.837 | 2.29% | 97.3% | 27,882,176 ❌ |
 
-**Two constraints, not one.** Fertility alone would choose the largest size for Nepali,
-whose fertility was still improving at 48k. But vocabulary size is not free downstream:
-with weight tying the embedding matrix is `vocab_size × d_model`, and against the ~25M
-parameter budget this project sets, a 48k vocabulary at `d_model` 384 would consume ~18.4M
-of it and leave only ~6.6M for the Transformer layers — against ~12.3M/~12.7M at 32k. A
-3.6% fertility gain does not justify surrendering a quarter of the model.
+**Two constraints, not one.** Fertility alone would choose the largest size for both
+languages — it falls monotonically across the sweep. But vocabulary size is not free
+downstream. Under weight tying the embedding matrix is `vocab_size × d_model` and is
+counted once, so vocabulary trades directly against depth against the ~25M parameter
+budget this project sets.
 
-Both languages therefore use **32,000**, chosen by held-out fertility subject to the
-parameter budget.
+At `d_model = 448` the rest of the model costs **17,130,176** parameters. A 25,000,000
+budget therefore leaves **7,869,824** for the embedding table, and
 
-The languages behave differently, and the difference is informative. Hindi's 48k vocabulary
-sits **78.6% utilised** — it has saturated, and further vocabulary is waste. Nepali's is
-still **91.5% utilised** — it would continue to benefit from more. Nepali is
-morphologically richer and segments less efficiently at *every* size (1.552 vs 1.388 at 8k).
+```
+7,869,824 ÷ 448 = 17,566
+```
+
+is the largest vocabulary that fits. The `Model total` column above makes the consequence
+concrete: 24,000 would put the model at **27,882,176** parameters — 11.5% over target — so
+it was trained and measured for comparison but was never selectable.
+
+Among the sizes that do fit, fertility is lowest at **16,000** for both languages, so it
+wins outright: 1.259 tokens/word for Hindi and 1.381 for Nepali, against 1.300 and 1.442 at
+12,000. Both languages therefore use **16,000**.
+
+The cost is visible and accepted. Moving from 24,000 to 16,000 costs 3.5% fertility for
+Hindi and 5.4% for Nepali — each sentence becomes a few tokens longer — in exchange for
+3,584,000 parameters redirected from a lookup table into seven Transformer blocks. At this
+scale that is the better trade: the table only stores what a token *is*, while the blocks
+are what compose meaning.
+
+The languages behave differently, and the difference is informative. Nepali segments less
+efficiently at *every* size (1.548 against 1.374 at 8,000) and keeps higher utilisation
+throughout (97.9% against 94.8% at 16,000) — it is morphologically richer, so it fills
+whatever vocabulary it is given and would still benefit from more. Hindi's utilisation has
+begun to fall away by 24,000 (91.0%), indicating it is closer to saturation. The budget
+constraint binds first for both, but it costs Nepali more.
 
 ### 6.3 Measured tokenizer behaviour
 
 | | Hindi | Nepali |
 |---|---|---|
-| Vocabulary | 32,000 | 32,000 |
-| Fertility (tokens/word) | **1.237** | **1.300** |
-| Characters per token | 4.10 | 4.96 |
+| Vocabulary | 16,000 | 16,000 |
+| Fertility (tokens/word) | **1.306** | **1.415** |
+| Characters per token | 3.87 | 4.56 |
 | Unknown-token rate | 0.000% | 0.000% |
-| Byte-fallback rate | ~1.97% | ~2.33% |
-| Distinct tokens used | 31,874 | 31,919 |
-| **Vocabulary utilisation** | **99.6%** | **99.7%** |
-| Tokens appearing exactly once | 1 | 2 |
+| Byte-fallback rate | ~1.33% | ~2.17% |
+| Distinct tokens used | 15,876 | 15,921 |
+| **Vocabulary utilisation** | **99.2%** | **99.5%** |
+| Tokens appearing exactly once | 1 | 3 |
 
 Nearly complete vocabulary utilisation, with one or two hapax tokens across 650M+ tokens,
 indicates the size is well matched to the data — essentially no dead entries.
@@ -413,7 +432,7 @@ two newspapers, Nepali's from a single portal whose archive was exhausted.
 The observed curve sits above a slope −1 reference through the mid-range. This is expected
 for subword tokenization: BPE deliberately merges frequent character sequences, which
 flattens the head relative to a word-level Zipf distribution. The sharp cliff at rank
-~30,000 is the vocabulary boundary, corroborating the 99.6% / 99.7% utilisation figures —
+~16,000 is the vocabulary boundary, corroborating the 99.2% / 99.5% utilisation figures —
 the vocabulary is used right to its edge, with almost no dead entries.
 
 ![Hindi: token frequency distribution](hindi/figures/hi_zipf.png)
@@ -432,9 +451,9 @@ documents (1.28M vs 947k) to reach a comparable token count.
 ### 7.4 Vocabulary size versus fertility and byte fallback
 
 The evidence behind the vocabulary-size decision in §6.2. Fertility falls as vocabulary
-grows while byte-fallback rate rises; the returns flatten after 32,000 for Hindi but are
-still improving for Nepali at 48,000, which is what the parameter-budget constraint
-overrides.
+grows while byte-fallback rate rises; both curves are still improving at 24,000, which is
+exactly why the decision could not be made on fertility alone — the parameter budget, not
+a plateau, is what fixes the size at 16,000.
 
 ![Hindi: vocabulary size vs fertility](hindi/figures/hi_fertility.png)
 ![Nepali: vocabulary size vs fertility](nepali/figures/ne_fertility.png)
@@ -458,8 +477,8 @@ Stated plainly rather than left to be discovered.
    nor a tokenizer, so neither falls under the assignment's prohibition, but both are
    pretrained artefacts and are declared here rather than left implicit.
 5. **Token estimates during collection were initially wrong.** A placeholder fertility of
-   1.8 tokens/word overstated counts by ~45%; the measured value is 1.237 (Hindi) and
-   1.300 (Nepali). This was caught by training a trial tokenizer mid-project and corrected
+   1.8 tokens/word overstated counts by ~38%; the measured value is 1.306 (Hindi) and
+   1.415 (Nepali). This was caught by training a trial tokenizer mid-project and corrected
    by collecting more data. Final counts are measured, not estimated.
 6. **`corpus_stats.py` is single-threaded** where it is embarrassingly parallel — each
    shard could be encoded independently. It cost ~30 minutes that ~4 would have sufficed

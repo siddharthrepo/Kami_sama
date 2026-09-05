@@ -34,10 +34,10 @@ separated by Unicode range alone. That cost is measurable: language filtering re
 | Characters per token | 3.87 | 4.56 |
 | Vocabulary utilisation | 94.8% | 97.9% |
 
-> The vocabulary was reduced from the 32,000 selected in Phase 1 to **16,000** for
-> Phase 2. Under weight tying the embedding matrix is `vocab_size x d_model`, so at
-> 32,000 it would have consumed 14,336,000 of the ~25M parameter budget. See
-> `report/phase2.md` §0.
+> Vocabulary is **16,000** for both languages, fixed in Phase 1 by the ~25M parameter
+> budget: under weight tying the embedding is `vocab_size x d_model`, so at
+> `d_model = 448` the largest affordable table is 17,566 pieces. See
+> `report/phase1.md` §6.2 and `report/phase2.md` §0.
 
 Both corpora exceed the ~500M token target, and both exceed the required 20% manual
 collection share. Token counts are **measured** by encoding the corpus with the trained
@@ -128,10 +128,10 @@ held-out validation text, and installs the selected one.
 
 ```bash
 .venv/bin/python -m scripts.train_tokenizer --config hindi/configs/dataset.json \
-  --vocab-sizes 8000 16000 32000 48000 --sample-lines 2000000
+  --vocab-sizes 8000 12000 16000 24000 --sample-lines 2000000
 
 .venv/bin/python -m scripts.train_tokenizer --config nepali/configs/dataset.json \
-  --vocab-sizes 8000 16000 32000 48000 --sample-lines 2000000
+  --vocab-sizes 8000 12000 16000 24000 --sample-lines 2000000
 ```
 
 **6. Measure the corpus** and render the report figures.
