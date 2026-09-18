@@ -96,3 +96,33 @@ Most specialised head in each model (lowest entropy):
 
 - Model H (Hindi): layer 3, head 3 — entropy 0.163 nats, 88.0% of its mass on the previous token, mean distance 1.37
 - Model L (Nepali): layer 4, head 1 — entropy 0.112 nats, 95.6% of its mass on the previous token, mean distance 1.73
+
+## Reasoning: pretrained against finetuned (Phase 3)
+|  | Model H (Hindi) | Model L (Nepali) |
+|---|---|---|
+| Exact match — pretrained | 0.0000 | 0.0000 |
+| Exact match — **finetuned** | 0.5293 | 0.4553 |
+| Lenient match — finetuned | 0.5303 | 0.4553 |
+| First-word match — pretrained | 0.2527 | 0.1423 |
+| First-word match — finetuned | 0.5303 | 0.4553 |
+| Chance baseline | 0.3438 | 0.3438 |
+| Test examples | 3,000 | 3,000 |
+
+## Reasoning breakdown (Phase 3)
+| Template | Model H (Hindi) | Model L (Nepali) | chance |
+|---|---|---|---|
+| `chain_pair` | 0.8373 | 0.8600 | 0.2917 |
+| `chain_superlative_least` | 0.7306 | 0.5111 | 0.2900 |
+| `chain_superlative_most` | 0.7667 | 0.6590 | 0.2932 |
+| `numeric_equality` | 0.5093 | 0.5147 | 0.5000 |
+| `numeric_pair` | 0.3627 | 0.1493 | 0.5000 |
+| `numeric_superlative_least` | 0.0981 | 0.0477 | 0.2920 |
+| `numeric_superlative_most` | 0.0912 | 0.0349 | 0.2913 |
+
+By reasoning depth. More hops scores *higher*, because depth and template type are confounded by construction: every one-hop item is a numeric comparison and every two- and three-hop item is a symbolic chain.
+
+| Depth | Model H (Hindi) | Model L (Nepali) | chance |
+|---|---|---|---|
+| 1 hop | 0.2653 | 0.1867 | 0.3958 |
+| 2 hops | 0.8619 | 0.7835 | 0.3112 |
+| 3 hops | 0.6472 | 0.5971 | 0.2500 |

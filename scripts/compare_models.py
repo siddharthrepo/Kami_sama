@@ -70,6 +70,10 @@ def gather(code: str, checkpoints_root: Path, report_root: Path) -> dict:
         # Phase 1 context, for the resource-level discussion.
         "tokenizer": load_json(report_root / name / "tokenizer_stats.json"),
         "splits": load_json(report_root / name / "split_stats.json"),
+        # Phase 3.
+        "reasoning": load_json(report_root / name / "reasoning_eval.json"),
+        "reasoning_data": load_json(report_root / name / "reasoning_stats.json"),
+        "attention_ft": load_json(report_root / name / "attention_stats_finetuned.json"),
     }
 
 
@@ -267,6 +271,87 @@ def section_attention(models: list[dict]) -> str:
     return out + "\n".join(lines) + "\n"
 
 
+def section_reasoning(models: list[dict]) -> str:
+    """Pretrained against finetuned exact match, with the chance floor beside it.
+
+    The chance column is not decoration. A pretrained model that continues the prompt as
+    prose scores zero on exact match however well it understands the question, and its
+    first-word score can look like partial competence until it is read against the floor.
+    """
+    rows = []
+    for label, stage, key in (
+        ("Exact match — pretrained", "pretrained", "exact_match_strict"),
+        ("Exact match — **finetuned**", "finetuned", "exact_match_strict"),
+        ("Lenient match — finetuned", "finetuned", "exact_match_lenient"),
+        ("First-word match — pretrained", "pretrained", "first_word_match"),
+        ("First-word match — finetuned", "finetuned", "first_word_match"),
+        ("Chance baseline", "finetuned", "chance_baseline"),
+    ):
+        cells = [label]
+        for m in models:
+            r = m["reasoning"]
+            cells.append(f"{r['models'][stage][key]:.4f}" if r else "--")
+        rows.append(cells)
+
+    cells = ["Test examples"]
+    for m in models:
+        cells.append(f"{m['reasoning']['examples']:,}" if m["reasoning"] else "--")
+    rows.append(cells)
+
+    return table(["", *[m["label"] for m in models]], rows)
+
+
+def section_reasoning_breakdown(models: list[dict]) -> str:
+    """Finetuned accuracy per template family and per reasoning depth.
+
+    Splitting by template is what separates the two regimes the models are actually in:
+    symbolic comparison over named entities, which they learn, and numeric comparison,
+    which they do not. Hop count alone cannot show that -- depth and template type are
+    confounded by how the dataset is built, since every one-hop item is numeric.
+    """
+    first = next((m for m in models if m["reasoning"]), None)
+    if first is None:
+        return "_No reasoning evaluation found._\n"
+
+    families = sorted(first["reasoning"]["models"]["finetuned"]["by_template"])
+    rows = []
+    for family in families:
+        cells = [f"`{family}`"]
+        chance = None
+        for m in models:
+            r = m["reasoning"]
+            if not r:
+                cells.append("--")
+                continue
+            entry = r["models"]["finetuned"]["by_template"][family]
+            cells.append(f"{entry['strict']:.4f}")
+            chance = entry["chance"]
+        cells.append(f"{chance:.4f}" if chance is not None else "--")
+        rows.append(cells)
+    out = table(["Template", *[m["label"] for m in models], "chance"], rows)
+
+    hops = sorted(first["reasoning"]["models"]["finetuned"]["by_hops"], key=int)
+    rows = []
+    for hop in hops:
+        cells = [f"{hop} hop" + ("s" if hop != "1" else "")]
+        chance = None
+        for m in models:
+            r = m["reasoning"]
+            if not r:
+                cells.append("--")
+                continue
+            entry = r["models"]["finetuned"]["by_hops"][hop]
+            cells.append(f"{entry['strict']:.4f}")
+            chance = entry["chance"]
+        cells.append(f"{chance:.4f}" if chance is not None else "--")
+        rows.append(cells)
+
+    return (out + "\nBy reasoning depth. More hops scores *higher*, because depth and "
+            "template type are confounded by construction: every one-hop item is a "
+            "numeric comparison and every two- and three-hop item is a symbolic chain.\n\n"
+            + table(["Depth", *[m["label"] for m in models], "chance"], rows))
+
+
 def main() -> None:
     """Write the side-by-side comparison tables as Markdown."""
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
@@ -294,6 +379,8 @@ def main() -> None:
         "\n## Intrinsic language-modelling metrics\n", section_language_modelling(models),
         "\n## Generation quality and diversity\n", section_generation(models),
         "\n## Attention summary\n", section_attention(models),
+        "\n## Reasoning: pretrained against finetuned (Phase 3)\n", section_reasoning(models),
+        "\n## Reasoning breakdown (Phase 3)\n", section_reasoning_breakdown(models),
     ]
     body = "".join(parts)
 

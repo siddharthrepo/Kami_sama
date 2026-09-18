@@ -286,27 +286,37 @@ consolidating questions, in **[`report/phase3.md`](report/phase3.md)**.
 
 ## Google Drive links
 
-Produced by `scripts/package_for_drive.py` (default `--profile full`, ~11.1 GB total).
-Set each file to "Anyone with the link can view" so graders do not have to request access.
+All large artifacts live in one shared Drive folder, organised by pipeline stage. Set each
+folder to **"Anyone with the link can view"** so graders do not have to request access.
 
-_Links to be added before submission._
-
-| Archive | Contents | Size | Link |
+| Drive folder | Contents | Phase | Link |
 |---|---|---|---|
-| `hindi-manual-corpus.tar` | Hindi scraped shards — Jansatta, The Wire Hindi | 345 MB | _pending_ |
-| `nepali-manual-corpus.tar` | Nepali scraped shards — Onlinekhabar | 381 MB | _pending_ |
-| `hindi-downloaded-corpus.tar` | Hindi FineWeb-2 + Wikipedia shards | 930 MB | _pending_ |
-| `nepali-downloaded-corpus.tar` | Nepali FineWeb-2 + Wikipedia shards | 1.2 GB | _pending_ |
-| `hindi-clean-corpus.tar` | Hindi corpus after cleaning, before splitting | 1.3 GB | _pending_ |
-| `nepali-clean-corpus.tar` | Nepali corpus after cleaning, before splitting | 1.5 GB | _pending_ |
-| `hindi-splits.tar` | Hindi train/validation/test — input to Phase 2 | 1.3 GB | _pending_ |
-| `nepali-splits.tar` | Nepali train/validation/test — input to Phase 2 | 1.5 GB | _pending_ |
-| `tokenizers.tar` | Both tokenizers, all four candidate vocab sizes, training samples | 2.4 GB | _pending_ |
-| `reports-and-logs.tar` | Statistics JSON, figures, phase report, all run logs | 5 MB | _pending_ |
-| `hindi-model-checkpoint.tar` | Model H `best.pt` + step checkpoints + training log | 803 MB | _pending_ |
-| `nepali-model-checkpoint.tar` | Model L `best.pt` + step checkpoints + training log | 803 MB | _pending_ |
-| `hindi-finetuned-checkpoint.tar` | Model H reasoning-finetuned `best.pt` + step checkpoints + finetuning log | 1.1 GB | _pending_ |
-| `nepali-finetuned-checkpoint.tar` | Model L reasoning-finetuned `best.pt` + step checkpoints + finetuning log | 1.1 GB | _pending_ |
+| `raw_data/` | Scraped shards (Jansatta, The Wire Hindi, Onlinekhabar) and downloaded shards (FineWeb-2, Wikipedia), both languages | 1 | _pending_ |
+| `hindi_clean/` | Hindi corpus after Unicode normalisation, language filtering and deduplication | 1 | _pending_ |
+| `nepali_clean/` | Nepali corpus, same stage | 1 | _pending_ |
+| `Hindi_Split/` | Hindi train / validation / test, 98/1/1 at document level | 1 | _pending_ |
+| `Nepali_Split/` | Nepali train / validation / test | 1 | _pending_ |
+| `Tokenized_corpora/` | Packed `uint16` token arrays — the direct input to pretraining | 2 | _pending_ |
+| `logs/` | Collection, cleaning and run logs | 1–3 | _pending_ |
+| **`checkpoints/`** | **All four model checkpoints — see below** | **2–3** | **_pending_** |
+
+`checkpoints/` contains one folder per model, each with `best.pt`, its rolling step
+checkpoints and its training log:
+
+| Subfolder | Model | Stage | Link |
+|---|---|---|---|
+| `checkpoints/hindi/` | Model H | pretrained (Phase 2) | _pending_ |
+| `checkpoints/nepali/` | Model L | pretrained (Phase 2) | _pending_ |
+| `checkpoints/hindi-finetuned/` | Model H | reasoning-finetuned (Phase 3) | _pending_ |
+| `checkpoints/nepali-finetuned/` | Model L | reasoning-finetuned (Phase 3) | _pending_ |
+
+Every checkpoint carries model weights, optimiser state, scheduler state, training step
+and configuration, plus the four RNG streams — so training resumes bit-identically from
+any of them.
+
+**Not on Drive, and deliberately so:** everything under `report/` — statistics, figures,
+attention heatmaps and the three phase reports — is committed to this repository. The
+assignment grades what is on the branch, not what is behind a link.
 
 The trained tokenizers (`hi.model`, `hi.vocab`, `ne.model`, `ne.vocab` — 3.3 MB total) are
 small enough to be committed directly and are in this repository; the Drive copy is a
