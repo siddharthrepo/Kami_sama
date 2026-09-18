@@ -1,0 +1,811 @@
+{
+  "language": "ne",
+  "split": "test",
+  "examples": 3000,
+  "decoding": {
+    "greedy": true,
+    "max_new_tokens": 8
+  },
+  "models": {
+    "pretrained": {
+      "examples": 3000,
+      "exact_match_strict": 0.0,
+      "exact_match_lenient": 0.0,
+      "first_word_match": 0.1423,
+      "chance_baseline": 0.3438,
+      "by_template": {
+        "chain_pair": {
+          "n": 750,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.3693,
+          "chance": 0.2917
+        },
+        "chain_superlative_least": {
+          "n": 360,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0028,
+          "chance": 0.29
+        },
+        "chain_superlative_most": {
+          "n": 390,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2641,
+          "chance": 0.2932
+        },
+        "numeric_equality": {
+          "n": 375,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0,
+          "chance": 0.5
+        },
+        "numeric_pair": {
+          "n": 375,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.1227,
+          "chance": 0.5
+        },
+        "numeric_superlative_least": {
+          "n": 377,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0,
+          "chance": 0.292
+        },
+        "numeric_superlative_most": {
+          "n": 373,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0,
+          "chance": 0.2913
+        }
+      },
+      "by_hops": {
+        "1": {
+          "n": 1500,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0307,
+          "chance": 0.3958
+        },
+        "2": {
+          "n": 1021,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.3085,
+          "chance": 0.3112
+        },
+        "3": {
+          "n": 479,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.1378,
+          "chance": 0.25
+        }
+      },
+      "by_attribute": {
+        "age": {
+          "n": 745,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.1436,
+          "chance": 0.3466
+        },
+        "height": {
+          "n": 391,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2839,
+          "chance": 0.292
+        },
+        "length": {
+          "n": 383,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0287,
+          "chance": 0.3966
+        },
+        "price": {
+          "n": 377,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0371,
+          "chance": 0.393
+        },
+        "speed": {
+          "n": 345,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2348,
+          "chance": 0.2884
+        },
+        "weight": {
+          "n": 759,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.1357,
+          "chance": 0.3416
+        }
+      },
+      "by_n_entities": {
+        "2": {
+          "n": 750,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0613,
+          "chance": 0.5
+        },
+        "3": {
+          "n": 1125,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2,
+          "chance": 0.3333
+        },
+        "4": {
+          "n": 1125,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.1387,
+          "chance": 0.25
+        }
+      },
+      "checkpoint": "checkpoints/nepali/best.pt",
+      "checkpoint_step": 16000,
+      "seconds": 18.2
+    },
+    "finetuned": {
+      "examples": 3000,
+      "exact_match_strict": 0.4553,
+      "exact_match_lenient": 0.4553,
+      "first_word_match": 0.4553,
+      "chance_baseline": 0.3438,
+      "by_template": {
+        "chain_pair": {
+          "n": 750,
+          "strict": 0.86,
+          "lenient": 0.86,
+          "first_word": 0.86,
+          "chance": 0.2917
+        },
+        "chain_superlative_least": {
+          "n": 360,
+          "strict": 0.5111,
+          "lenient": 0.5111,
+          "first_word": 0.5111,
+          "chance": 0.29
+        },
+        "chain_superlative_most": {
+          "n": 390,
+          "strict": 0.659,
+          "lenient": 0.659,
+          "first_word": 0.659,
+          "chance": 0.2932
+        },
+        "numeric_equality": {
+          "n": 375,
+          "strict": 0.5147,
+          "lenient": 0.5147,
+          "first_word": 0.5147,
+          "chance": 0.5
+        },
+        "numeric_pair": {
+          "n": 375,
+          "strict": 0.1493,
+          "lenient": 0.1493,
+          "first_word": 0.1493,
+          "chance": 0.5
+        },
+        "numeric_superlative_least": {
+          "n": 377,
+          "strict": 0.0477,
+          "lenient": 0.0477,
+          "first_word": 0.0477,
+          "chance": 0.292
+        },
+        "numeric_superlative_most": {
+          "n": 373,
+          "strict": 0.0349,
+          "lenient": 0.0349,
+          "first_word": 0.0349,
+          "chance": 0.2913
+        }
+      },
+      "by_hops": {
+        "1": {
+          "n": 1500,
+          "strict": 0.1867,
+          "lenient": 0.1867,
+          "first_word": 0.1867,
+          "chance": 0.3958
+        },
+        "2": {
+          "n": 1021,
+          "strict": 0.7835,
+          "lenient": 0.7835,
+          "first_word": 0.7835,
+          "chance": 0.3112
+        },
+        "3": {
+          "n": 479,
+          "strict": 0.5971,
+          "lenient": 0.5971,
+          "first_word": 0.5971,
+          "chance": 0.25
+        }
+      },
+      "by_attribute": {
+        "age": {
+          "n": 745,
+          "strict": 0.447,
+          "lenient": 0.447,
+          "first_word": 0.447,
+          "chance": 0.3466
+        },
+        "height": {
+          "n": 391,
+          "strict": 0.7519,
+          "lenient": 0.7519,
+          "first_word": 0.7519,
+          "chance": 0.292
+        },
+        "length": {
+          "n": 383,
+          "strict": 0.188,
+          "lenient": 0.188,
+          "first_word": 0.188,
+          "chance": 0.3966
+        },
+        "price": {
+          "n": 377,
+          "strict": 0.1698,
+          "lenient": 0.1698,
+          "first_word": 0.1698,
+          "chance": 0.393
+        },
+        "speed": {
+          "n": 345,
+          "strict": 0.7159,
+          "lenient": 0.7159,
+          "first_word": 0.7159,
+          "chance": 0.2884
+        },
+        "weight": {
+          "n": 759,
+          "strict": 0.469,
+          "lenient": 0.469,
+          "first_word": 0.469,
+          "chance": 0.3416
+        }
+      },
+      "by_n_entities": {
+        "2": {
+          "n": 750,
+          "strict": 0.332,
+          "lenient": 0.332,
+          "first_word": 0.332,
+          "chance": 0.5
+        },
+        "3": {
+          "n": 1125,
+          "strict": 0.5396,
+          "lenient": 0.5396,
+          "first_word": 0.5396,
+          "chance": 0.3333
+        },
+        "4": {
+          "n": 1125,
+          "strict": 0.4533,
+          "lenient": 0.4533,
+          "first_word": 0.4533,
+          "chance": 0.25
+        }
+      },
+      "checkpoint": "/kaggle/working/checkpoints/nepali-finetuned/best.pt",
+      "checkpoint_step": 200,
+      "seconds": 8.2
+    }
+  },
+  "qualitative": {
+    "pretrained": {
+      "successes": [],
+      "wrong_entity": [
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: नारायण, नबिन भन्दा अग्लो छ। भीम, नारायण भन्दा अग्लो छ। भीम र नबिन मध्ये को अग्लो छ?\nउत्तर:",
+          "gold": "भीम",
+          "prediction": "नारायण, नारायण, नारायण, नारायण",
+          "first_word": "नारायण"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: नारायण, तुलसी भन्दा छिटो छ। पदम, छत्र भन्दा छिटो छ। छत्र, नारायण भन्दा छिटो छ। तुलसी र पदम मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "पदम",
+          "prediction": "नारायण, नारायण, नारायण, नारायण",
+          "first_word": "नारायण"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 2,
+          "prompt": "प्रश्न: भीम, नारायण भन्दा गह्रौं छ। जनक, भीम भन्दा गह्रौं छ। सबैभन्दा गह्रौं को हो?\nउत्तर:",
+          "gold": "जनक",
+          "prediction": "भीम, नारायण, नारायण, नारायण",
+          "first_word": "भीम"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: भीम, रवि भन्दा गह्रौं छ। रवि, उद्धव भन्दा गह्रौं छ। छत्र, भीम भन्दा गह्रौं छ। सबैभन्दा हलुका को हो?\nउत्तर:",
+          "gold": "उद्धव",
+          "prediction": "भीम, रवि, रवि, रवि",
+          "first_word": "भीम"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: डोरीको तौल १९ किलो हो। कुचोको तौल १४ किलो हो। के डोरी र कुचोको तौल बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "डोरीको तौल १८ किलो हो। यो",
+          "first_word": "डोरीको"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: पन्जाको मूल्य १२४१ रुपैयाँ हो। सिरानीको मूल्य ३८७ रुपैयाँ हो। पन्जा र सिरानी मध्ये कसको मूल्य बढी छ?\nउत्तर:",
+          "gold": "पन्जा",
+          "prediction": "पन्जा र पन्जाले मूल्य निर्धारण",
+          "first_word": "पन्जा"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: सिरानीको मूल्य १०२७ रुपैयाँ हो। डोरीको मूल्य ४४६ रुपैयाँ हो। बोतलको मूल्य ३०७७ रुपैयाँ हो। सबैभन्दा बढी मूल्य कसको हो?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "बोतलको मूल्य १०३ रुपैयाँ हो",
+          "first_word": "बोतलको"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: काइँयोको तौल १४ किलो हो। किताबको तौल ७३ किलो हो। कुचोको तौल २७ किलो हो। पन्जाको तौल ९१ किलो हो। सबैभन्दा बढी तौल कसको हो?\nउत्तर:",
+          "gold": "पन्जा",
+          "prediction": "काइँयोको तौल १८ किलो हो",
+          "first_word": "काइँयोको"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: नबिन, रवि भन्दा छिटो छ। रवि, नारायण भन्दा छिटो छ। नबिन र नारायण मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "नबिन",
+          "prediction": "रवि, रवि, रवि, रवि",
+          "first_word": "रवि"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: तुलसी, नबिन भन्दा छिटो छ। देव, उद्धव भन्दा छिटो छ। उद्धव, तुलसी भन्दा छिटो छ। देव र नबिन मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "तुलसी, तुलसी, तुलसी, तुलसी",
+          "first_word": "तुलसी"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: भीम, उद्धव भन्दा छिटो छ। सन्तोष, भीम भन्दा छिटो छ। उद्धव, नारायण भन्दा छिटो छ। सबैभन्दा ढिलो को हो?\nउत्तर:",
+          "gold": "नारायण",
+          "prediction": "भीम, इन्द्र, इन्द्र, इन्द्र",
+          "first_word": "भीम"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: काइँयोको तौल ४० किलो हो। कुचोको तौल ४६ किलो हो। के कुचो र काइँयोको तौल बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "कुचोको तौल ४० किलो हो",
+          "first_word": "कुचोको"
+        }
+      ],
+      "off_format": [
+        {
+          "template": "chain_superlative_least",
+          "hops": 2,
+          "prompt": "प्रश्न: नबिन, पदम भन्दा अग्लो छ। पदम, देव भन्दा अग्लो छ। सबैभन्दा होचो को हो?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "- यो पनि एक सुन्दर र सुन्दर",
+          "first_word": "-"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: पदम, सन्तोष भन्दा छिटो छ। सन्तोष, तुलसी भन्दा छिटो छ। पदम र तुलसी मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "पदम",
+          "prediction": "- सन्तोषको लागि, सन्तोषको",
+          "first_word": "-"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: नबिन, जनक भन्दा छिटो छ। जनक, छत्र भन्दा छिटो छ। देव, नबिन भन्दा छिटो छ। देव र छत्र मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "यो छ कि जनक, छत्र",
+          "first_word": "यो"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: सन्तोष, छत्र भन्दा जेठो छ। छत्र, पदम भन्दा जेठो छ। तुलसी, सन्तोष भन्दा जेठो छ। तुलसी र छत्र मध्ये को जेठो छ?\nउत्तर:",
+          "gold": "तुलसी",
+          "prediction": "- म त भन्छु, म त",
+          "first_word": "-"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 2,
+          "prompt": "प्रश्न: नबिन, रवि भन्दा अग्लो छ। पदम, नबिन भन्दा अग्लो छ। सबैभन्दा अग्लो को हो?\nउत्तर:",
+          "gold": "पदम",
+          "prediction": "रविको नाम, रविको नाम",
+          "first_word": "रविको"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: उद्धव, तुलसी भन्दा गह्रौं छ। नारायण, सागर भन्दा गह्रौं छ। तुलसी, नारायण भन्दा गह्रौं छ। उद्धव र सागर मध्ये को गह्रौं छ?\nउत्तर:",
+          "gold": "उद्धव",
+          "prediction": "यो पनि छ कि यो पनि छ कि",
+          "first_word": "यो"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: पदम, भीम भन्दा गह्रौं छ। छत्र, पदम भन्दा गह्रौं छ। छत्र र भीम मध्ये को गह्रौं छ?\nउत्तर:",
+          "gold": "छत्र",
+          "prediction": "भीमलाई गह्रौं छत्र र",
+          "first_word": "भीमलाई"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: उद्धव, नारायण भन्दा अग्लो छ। सन्तोष, उद्धव भन्दा अग्लो छ। नारायण र सन्तोष मध्ये को अग्लो छ?\nउत्तर:",
+          "gold": "सन्तोष",
+          "prediction": "नारायणको मन्दिर, नारायणको मन्दिर",
+          "first_word": "नारायणको"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: काइँयोको तौल ६१ किलो हो। पन्जाको तौल ५२ किलो हो। काइँयो र पन्जा मध्ये कसको तौल बढी छ?\nउत्तर:",
+          "gold": "काइँयो",
+          "prediction": "पन्जामा तौल ३६ किलो हो",
+          "first_word": "पन्जामा"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: सागर, भीम भन्दा गह्रौं छ। देव, सागर भन्दा गह्रौं छ। भीम र देव मध्ये को गह्रौं छ?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "सागरको गह्रौं छ",
+          "first_word": "सागरको"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: रवि, सागर भन्दा अग्लो छ। पदम, छत्र भन्दा अग्लो छ। सागर, पदम भन्दा अग्लो छ। छत्र र सागर मध्ये को अग्लो छ?\nउत्तर:",
+          "gold": "सागर",
+          "prediction": "सागरको छत्र र सागरको छ",
+          "first_word": "सागरको"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: रविको उमेर १० वर्ष हो। देवको उमेर ३० वर्ष हो। छत्रको उमेर ६९ वर्ष हो। सन्तोषको उमेर ४५ वर्ष हो। सबैभन्दा कम उमेर कसको हो?\nउत्तर:",
+          "gold": "रवि",
+          "prediction": "उनको उमेर ४० वर्ष हो। उनी उमेर",
+          "first_word": "उनको"
+        }
+      ]
+    },
+    "finetuned": {
+      "successes": [
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: नारायण, तुलसी भन्दा छिटो छ। पदम, छत्र भन्दा छिटो छ। छत्र, नारायण भन्दा छिटो छ। तुलसी र पदम मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "पदम",
+          "prediction": "पदम",
+          "first_word": "पदम"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: तुलसी, नबिन भन्दा छिटो छ। देव, उद्धव भन्दा छिटो छ। उद्धव, तुलसी भन्दा छिटो छ। देव र नबिन मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "देव",
+          "first_word": "देव"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: छत्र, सागर भन्दा जेठो छ। सन्तोष, छत्र भन्दा जेठो छ। रवि, सन्तोष भन्दा जेठो छ। रवि र सागर मध्ये को जेठो छ?\nउत्तर:",
+          "gold": "रवि",
+          "prediction": "रवि",
+          "first_word": "रवि"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: तुलसी, रवि भन्दा छिटो छ। रवि, छत्र भन्दा छिटो छ। देव, तुलसी भन्दा छिटो छ। सबैभन्दा छिटो को हो?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "देव",
+          "first_word": "देव"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: नबिन, जनक भन्दा छिटो छ। जनक, छत्र भन्दा छिटो छ। देव, नबिन भन्दा छिटो छ। देव र छत्र मध्ये को छिटो छ?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "देव",
+          "first_word": "देव"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: जनक, भीम भन्दा जेठो छ। उद्धव, जनक भन्दा जेठो छ। सन्तोष, उद्धव भन्दा जेठो छ। सबैभन्दा कान्छो को हो?\nउत्तर:",
+          "gold": "भीम",
+          "prediction": "भीम",
+          "first_word": "भीम"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: पदम, नारायण भन्दा गह्रौं छ। जनक, रवि भन्दा गह्रौं छ। नारायण, जनक भन्दा गह्रौं छ। सबैभन्दा हलुका को हो?\nउत्तर:",
+          "gold": "रवि",
+          "prediction": "रवि",
+          "first_word": "रवि"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: भीम, पदम भन्दा गह्रौं छ। पदम, जनक भन्दा गह्रौं छ। जनक, नबिन भन्दा गह्रौं छ। सबैभन्दा गह्रौं को हो?\nउत्तर:",
+          "gold": "भीम",
+          "prediction": "भीम",
+          "first_word": "भीम"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: नारायण, तुलसी भन्दा गह्रौं छ। सन्तोष, नबिन भन्दा गह्रौं छ। तुलसी, सन्तोष भन्दा गह्रौं छ। नबिन र नारायण मध्ये को गह्रौं छ?\nउत्तर:",
+          "gold": "नारायण",
+          "prediction": "नारायण",
+          "first_word": "नारायण"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: रवि, पदम भन्दा जेठो छ। जनक, रवि भन्दा जेठो छ। पदम, तुलसी भन्दा जेठो छ। सबैभन्दा जेठो को हो?\nउत्तर:",
+          "gold": "जनक",
+          "prediction": "जनक",
+          "first_word": "जनक"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: भीम, नारायण भन्दा अग्लो छ। नारायण, सन्तोष भन्दा अग्लो छ। सन्तोष, देव भन्दा अग्लो छ। भीम र देव मध्ये को अग्लो छ?\nउत्तर:",
+          "gold": "भीम",
+          "prediction": "भीम",
+          "first_word": "भीम"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: तुलसी, नारायण भन्दा जेठो छ। नारायण, देव भन्दा जेठो छ। सागर, तुलसी भन्दा जेठो छ। सबैभन्दा कान्छो को हो?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "देव",
+          "first_word": "देव"
+        }
+      ],
+      "wrong_entity": [
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: डोरीको तौल १९ किलो हो। कुचोको तौल १४ किलो हो। के डोरी र कुचोको तौल बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "हो",
+          "first_word": "हो"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: सिरानीको मूल्य १०२७ रुपैयाँ हो। डोरीको मूल्य ४४६ रुपैयाँ हो। बोतलको मूल्य ३०७७ रुपैयाँ हो। सबैभन्दा बढी मूल्य कसको हो?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "डोरी",
+          "first_word": "डोरी"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: काइँयोको तौल ४० किलो हो। कुचोको तौल ४६ किलो हो। के कुचो र काइँयोको तौल बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "हो",
+          "first_word": "हो"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: नारायण, रवि भन्दा जेठो छ। छत्र, नारायण भन्दा जेठो छ। रवि र छत्र मध्ये को जेठो छ?\nउत्तर:",
+          "gold": "छत्र",
+          "prediction": "रवि",
+          "first_word": "रवि"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: पन्जाको लम्बाइ १९७ सेन्टिमिटर हो। सिरानीको लम्बाइ ८५ सेन्टिमिटर हो। के सिरानी र पन्जाको लम्बाइ बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "हो",
+          "first_word": "हो"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: डोरीको मूल्य ३१९१ रुपैयाँ हो। कुचोको मूल्य ५९६ रुपैयाँ हो। झोलाको मूल्य ३५९२ रुपैयाँ हो। सबैभन्दा बढी मूल्य कसको हो?\nउत्तर:",
+          "gold": "झोला",
+          "prediction": "डोरी",
+          "first_word": "डोरी"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: छत्र, सागर भन्दा गह्रौं छ। देव, उद्धव भन्दा गह्रौं छ। उद्धव, छत्र भन्दा गह्रौं छ। सबैभन्दा हलुका को हो?\nउत्तर:",
+          "gold": "सागर",
+          "prediction": "उद्धव",
+          "first_word": "उद्धव"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: सिरानीको मूल्य २४५ रुपैयाँ हो। कुचोको मूल्य २४९ रुपैयाँ हो। डोरीको मूल्य २२४७ रुपैयाँ हो। सबैभन्दा कम मूल्य कसको हो?\nउत्तर:",
+          "gold": "सिरानी",
+          "prediction": "डोरी",
+          "first_word": "डोरी"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 2,
+          "prompt": "प्रश्न: जनक, देव भन्दा छिटो छ। उद्धव, जनक भन्दा छिटो छ। सबैभन्दा छिटो को हो?\nउत्तर:",
+          "gold": "उद्धव",
+          "prediction": "जनक",
+          "first_word": "जनक"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: पदम, तुलसी भन्दा गह्रौं छ। जनक, रवि भन्दा गह्रौं छ। रवि, पदम भन्दा गह्रौं छ। सबैभन्दा हलुका को हो?\nउत्तर:",
+          "gold": "तुलसी",
+          "prediction": "रवि",
+          "first_word": "रवि"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: नारायणको उमेर ७२ वर्ष हो। तुलसीको उमेर २३ वर्ष हो। के नारायण र तुलसीको उमेर बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "हो",
+          "first_word": "हो"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: बोतलको लम्बाइ २१८ सेन्टिमिटर हो। काइँयोको लम्बाइ १३६ सेन्टिमिटर हो। के काइँयो र बोतलको लम्बाइ बराबर छ?\nउत्तर:",
+          "gold": "होइन",
+          "prediction": "हो",
+          "first_word": "हो"
+        }
+      ],
+      "off_format": [
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: भीम, रवि भन्दा गह्रौं छ। रवि, उद्धव भन्दा गह्रौं छ। छत्र, भीम भन्दा गह्रौं छ। सबैभन्दा हलुका को हो?\nउत्तर:",
+          "gold": "उद्धव",
+          "prediction": "हेम",
+          "first_word": "हेम"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: पन्जाको मूल्य १२४१ रुपैयाँ हो। सिरानीको मूल्य ३८७ रुपैयाँ हो। पन्जा र सिरानी मध्ये कसको मूल्य बढी छ?\nउत्तर:",
+          "gold": "पन्जा",
+          "prediction": "चस्मा",
+          "first_word": "चस्मा"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: काइँयोको तौल १४ किलो हो। किताबको तौल ७३ किलो हो। कुचोको तौल २७ किलो हो। पन्जाको तौल ९१ किलो हो। सबैभन्दा बढी तौल कसको हो?\nउत्तर:",
+          "gold": "पन्जा",
+          "prediction": "कचौरा",
+          "first_word": "कचौरा"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: भीम, उद्धव भन्दा छिटो छ। सन्तोष, भीम भन्दा छिटो छ। उद्धव, नारायण भन्दा छिटो छ। सबैभन्दा ढिलो को हो?\nउत्तर:",
+          "gold": "नारायण",
+          "prediction": "मुकुन्द",
+          "first_word": "मुकुन्द"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: देवको उमेर ७९ वर्ष हो। उद्धवको उमेर ४९ वर्ष हो। देव र उद्धव मध्ये कसको उमेर बढी छ?\nउत्तर:",
+          "gold": "देव",
+          "prediction": "धन",
+          "first_word": "धन"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: पदमको उमेर १६ वर्ष हो। भीमको उमेर ५७ वर्ष हो। नारायणको उमेर ५६ वर्ष हो। सबैभन्दा बढी उमेर कसको हो?\nउत्तर:",
+          "gold": "भीम",
+          "prediction": "गोपाल",
+          "first_word": "गोपाल"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: डोरीको लम्बाइ १९९ सेन्टिमिटर हो। काइँयोको लम्बाइ १६६ सेन्टिमिटर हो। झोलाको लम्बाइ ४४ सेन्टिमिटर हो। बोतलको लम्बाइ ६९ सेन्टिमिटर हो। सबैभन्दा कम लम्बाइ कसको हो?\nउत्तर:",
+          "gold": "झोला",
+          "prediction": "कचौरा",
+          "first_word": "कचौरा"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: झोलाको तौल ८१ किलो हो। काइँयोको तौल ३५ किलो हो। काइँयो र झोला मध्ये कसको तौल बढी छ?\nउत्तर:",
+          "gold": "झोला",
+          "prediction": "कैंची",
+          "first_word": "कैंची"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: झोलाको तौल २२ किलो हो। सिरानीको तौल ३ किलो हो। काइँयोको तौल ६६ किलो हो। पन्जाको तौल ४३ किलो हो। सबैभन्दा बढी तौल कसको हो?\nउत्तर:",
+          "gold": "काइँयो",
+          "prediction": "कैंची",
+          "first_word": "कैंची"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: झोलाको तौल ५० किलो हो। सिरानीको तौल ७१ किलो हो। झोला र सिरानी मध्ये कसको तौल बढी छ?\nउत्तर:",
+          "gold": "सिरानी",
+          "prediction": "छाता",
+          "first_word": "छाता"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: काइँयोको मूल्य ६०७ रुपैयाँ हो। पन्जाको मूल्य ६३३ रुपैयाँ हो। डोरीको मूल्य २०५२ रुपैयाँ हो। सिरानीको मूल्य २३६१ रुपैयाँ हो। सबैभन्दा कम मूल्य कसको हो?\nउत्तर:",
+          "gold": "काइँयो",
+          "prediction": "कचौरा",
+          "first_word": "कचौरा"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: बोतलको मूल्य २३६५ रुपैयाँ हो। काइँयोको मूल्य २७५ रुपैयाँ हो। बोतल र काइँयो मध्ये कसको मूल्य बढी छ?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "बाकस",
+          "first_word": "बाकस"
+        }
+      ]
+    }
+  },
+  "improvement_strict": 0.4553
+}

@@ -49,3 +49,4 @@ incoming/
 checkpoints/
 *.pt
 *.tar.gz
+outputs_of_run_1

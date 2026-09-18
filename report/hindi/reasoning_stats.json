@@ -1,0 +1,162 @@
+{
+  "language": "hi",
+  "seed": 1337,
+  "generator_families": [
+    "chain_pair_3",
+    "chain_pair_4",
+    "chain_superlative_3",
+    "chain_superlative_4",
+    "numeric_equality",
+    "numeric_pair",
+    "numeric_superlative_3",
+    "numeric_superlative_4"
+  ],
+  "pool_fractions": {
+    "train": 0.6,
+    "validation": 0.2,
+    "test": 0.2
+  },
+  "splits": {
+    "train": {
+      "examples": 24000,
+      "templates": {
+        "chain_pair": 6000,
+        "chain_superlative_least": 3025,
+        "chain_superlative_most": 2975,
+        "numeric_equality": 3000,
+        "numeric_pair": 3000,
+        "numeric_superlative_least": 3003,
+        "numeric_superlative_most": 2997
+      },
+      "attributes": {
+        "age": 5990,
+        "height": 2979,
+        "length": 2990,
+        "price": 2952,
+        "speed": 3082,
+        "weight": 6007
+      },
+      "entities_per_example": {
+        "2": 6000,
+        "3": 9000,
+        "4": 9000
+      },
+      "reasoning_hops": {
+        "1": 12000,
+        "2": 8022,
+        "3": 3978
+      },
+      "distinct_answers": 62,
+      "equality_answer_balance": {
+        "नहीं": 1481,
+        "हाँ": 1519
+      },
+      "prompt_chars_min": 72,
+      "prompt_chars_mean": 109.6,
+      "prompt_chars_max": 174
+    },
+    "validation": {
+      "examples": 3000,
+      "templates": {
+        "chain_pair": 750,
+        "chain_superlative_least": 360,
+        "chain_superlative_most": 390,
+        "numeric_equality": 375,
+        "numeric_pair": 375,
+        "numeric_superlative_least": 378,
+        "numeric_superlative_most": 372
+      },
+      "attributes": {
+        "age": 751,
+        "height": 377,
+        "length": 354,
+        "price": 378,
+        "speed": 374,
+        "weight": 766
+      },
+      "entities_per_example": {
+        "2": 750,
+        "3": 1125,
+        "4": 1125
+      },
+      "reasoning_hops": {
+        "1": 1500,
+        "2": 993,
+        "3": 507
+      },
+      "distinct_answers": 22,
+      "equality_answer_balance": {
+        "नहीं": 208,
+        "हाँ": 167
+      },
+      "prompt_chars_min": 75,
+      "prompt_chars_mean": 107.9,
+      "prompt_chars_max": 168
+    },
+    "test": {
+      "examples": 3000,
+      "templates": {
+        "chain_pair": 750,
+        "chain_superlative_least": 360,
+        "chain_superlative_most": 390,
+        "numeric_equality": 375,
+        "numeric_pair": 375,
+        "numeric_superlative_least": 377,
+        "numeric_superlative_most": 373
+      },
+      "attributes": {
+        "age": 745,
+        "height": 391,
+        "length": 383,
+        "price": 377,
+        "speed": 345,
+        "weight": 759
+      },
+      "entities_per_example": {
+        "2": 750,
+        "3": 1125,
+        "4": 1125
+      },
+      "reasoning_hops": {
+        "1": 1500,
+        "2": 1021,
+        "3": 479
+      },
+      "distinct_answers": 22,
+      "equality_answer_balance": {
+        "नहीं": 183,
+        "हाँ": 192
+      },
+      "prompt_chars_min": 75,
+      "prompt_chars_mean": 109.5,
+      "prompt_chars_max": 174
+    }
+  },
+  "leakage": {
+    "strategy": "Entity-name pools are partitioned before generation, so no person or object name is shared between splits. Prompts are additionally deduplicated on a SHA-1 hash of the prompt text, within and across splits.",
+    "pool_sizes": {
+      "person": {
+        "train": 36,
+        "validation": 12,
+        "test": 12
+      },
+      "object": {
+        "train": 24,
+        "validation": 8,
+        "test": 8
+      }
+    },
+    "overlaps": {
+      "person_names_train_vs_validation": 0,
+      "person_names_train_vs_test": 0,
+      "person_names_validation_vs_test": 0,
+      "object_names_train_vs_validation": 0,
+      "object_names_train_vs_test": 0,
+      "object_names_validation_vs_test": 0,
+      "prompts_train_vs_validation": 0,
+      "prompts_train_vs_test": 0,
+      "prompts_validation_vs_test": 0
+    },
+    "clean": true
+  }
+}

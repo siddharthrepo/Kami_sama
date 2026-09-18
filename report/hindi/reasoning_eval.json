@@ -1,0 +1,811 @@
+{
+  "language": "hi",
+  "split": "test",
+  "examples": 3000,
+  "decoding": {
+    "greedy": true,
+    "max_new_tokens": 8
+  },
+  "models": {
+    "pretrained": {
+      "examples": 3000,
+      "exact_match_strict": 0.0,
+      "exact_match_lenient": 0.0,
+      "first_word_match": 0.2527,
+      "chance_baseline": 0.3438,
+      "by_template": {
+        "chain_pair": {
+          "n": 750,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.4173,
+          "chance": 0.2917
+        },
+        "chain_superlative_least": {
+          "n": 360,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0333,
+          "chance": 0.29
+        },
+        "chain_superlative_most": {
+          "n": 390,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2359,
+          "chance": 0.2932
+        },
+        "numeric_equality": {
+          "n": 375,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.0,
+          "chance": 0.5
+        },
+        "numeric_pair": {
+          "n": 375,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.464,
+          "chance": 0.5
+        },
+        "numeric_superlative_least": {
+          "n": 377,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.1989,
+          "chance": 0.292
+        },
+        "numeric_superlative_most": {
+          "n": 373,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2466,
+          "chance": 0.2913
+        }
+      },
+      "by_hops": {
+        "1": {
+          "n": 1500,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2273,
+          "chance": 0.3958
+        },
+        "2": {
+          "n": 1021,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.3418,
+          "chance": 0.3112
+        },
+        "3": {
+          "n": 479,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.142,
+          "chance": 0.25
+        }
+      },
+      "by_attribute": {
+        "age": {
+          "n": 745,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2752,
+          "chance": 0.3466
+        },
+        "height": {
+          "n": 391,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2813,
+          "chance": 0.292
+        },
+        "length": {
+          "n": 383,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2193,
+          "chance": 0.3966
+        },
+        "price": {
+          "n": 377,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2361,
+          "chance": 0.393
+        },
+        "speed": {
+          "n": 345,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2435,
+          "chance": 0.2884
+        },
+        "weight": {
+          "n": 759,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2451,
+          "chance": 0.3416
+        }
+      },
+      "by_n_entities": {
+        "2": {
+          "n": 750,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.232,
+          "chance": 0.5
+        },
+        "3": {
+          "n": 1125,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2996,
+          "chance": 0.3333
+        },
+        "4": {
+          "n": 1125,
+          "strict": 0.0,
+          "lenient": 0.0,
+          "first_word": 0.2196,
+          "chance": 0.25
+        }
+      },
+      "checkpoint": "checkpoints/hindi/best.pt",
+      "checkpoint_step": 16000,
+      "seconds": 16.1
+    },
+    "finetuned": {
+      "examples": 3000,
+      "exact_match_strict": 0.5293,
+      "exact_match_lenient": 0.5303,
+      "first_word_match": 0.5303,
+      "chance_baseline": 0.3438,
+      "by_template": {
+        "chain_pair": {
+          "n": 750,
+          "strict": 0.8373,
+          "lenient": 0.8373,
+          "first_word": 0.8373,
+          "chance": 0.2917
+        },
+        "chain_superlative_least": {
+          "n": 360,
+          "strict": 0.7306,
+          "lenient": 0.7306,
+          "first_word": 0.7306,
+          "chance": 0.29
+        },
+        "chain_superlative_most": {
+          "n": 390,
+          "strict": 0.7667,
+          "lenient": 0.7667,
+          "first_word": 0.7667,
+          "chance": 0.2932
+        },
+        "numeric_equality": {
+          "n": 375,
+          "strict": 0.5093,
+          "lenient": 0.5093,
+          "first_word": 0.5093,
+          "chance": 0.5
+        },
+        "numeric_pair": {
+          "n": 375,
+          "strict": 0.3627,
+          "lenient": 0.3707,
+          "first_word": 0.3707,
+          "chance": 0.5
+        },
+        "numeric_superlative_least": {
+          "n": 377,
+          "strict": 0.0981,
+          "lenient": 0.0981,
+          "first_word": 0.0981,
+          "chance": 0.292
+        },
+        "numeric_superlative_most": {
+          "n": 373,
+          "strict": 0.0912,
+          "lenient": 0.0912,
+          "first_word": 0.0912,
+          "chance": 0.2913
+        }
+      },
+      "by_hops": {
+        "1": {
+          "n": 1500,
+          "strict": 0.2653,
+          "lenient": 0.2673,
+          "first_word": 0.2673,
+          "chance": 0.3958
+        },
+        "2": {
+          "n": 1021,
+          "strict": 0.8619,
+          "lenient": 0.8619,
+          "first_word": 0.8619,
+          "chance": 0.3112
+        },
+        "3": {
+          "n": 479,
+          "strict": 0.6472,
+          "lenient": 0.6472,
+          "first_word": 0.6472,
+          "chance": 0.25
+        }
+      },
+      "by_attribute": {
+        "age": {
+          "n": 745,
+          "strict": 0.5195,
+          "lenient": 0.5195,
+          "first_word": 0.5195,
+          "chance": 0.3466
+        },
+        "height": {
+          "n": 391,
+          "strict": 0.7877,
+          "lenient": 0.7877,
+          "first_word": 0.7877,
+          "chance": 0.292
+        },
+        "length": {
+          "n": 383,
+          "strict": 0.2715,
+          "lenient": 0.2742,
+          "first_word": 0.2742,
+          "chance": 0.3966
+        },
+        "price": {
+          "n": 377,
+          "strict": 0.2891,
+          "lenient": 0.2944,
+          "first_word": 0.2944,
+          "chance": 0.393
+        },
+        "speed": {
+          "n": 345,
+          "strict": 0.7797,
+          "lenient": 0.7797,
+          "first_word": 0.7797,
+          "chance": 0.2884
+        },
+        "weight": {
+          "n": 759,
+          "strict": 0.5415,
+          "lenient": 0.5415,
+          "first_word": 0.5415,
+          "chance": 0.3416
+        }
+      },
+      "by_n_entities": {
+        "2": {
+          "n": 750,
+          "strict": 0.436,
+          "lenient": 0.44,
+          "first_word": 0.44,
+          "chance": 0.5
+        },
+        "3": {
+          "n": 1125,
+          "strict": 0.6836,
+          "lenient": 0.6836,
+          "first_word": 0.6836,
+          "chance": 0.3333
+        },
+        "4": {
+          "n": 1125,
+          "strict": 0.4373,
+          "lenient": 0.4373,
+          "first_word": 0.4373,
+          "chance": 0.25
+        }
+      },
+      "checkpoint": "/kaggle/working/checkpoints/hindi-finetuned/best.pt",
+      "checkpoint_step": 100,
+      "seconds": 6.9
+    }
+  },
+  "qualitative": {
+    "pretrained": {
+      "successes": [],
+      "wrong_entity": [
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: हितेश, नितिन से लंबा है। सचिन, हितेश से लंबा है। सचिन और नितिन में कौन लंबा है?\nउत्तर:",
+          "gold": "सचिन",
+          "prediction": "सचिन, हितेश से लंबा है",
+          "first_word": "सचिन"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: हितेश, निखिल से तेज़ है। कपिल, उदय से तेज़ है। उदय, हितेश से तेज़ है। निखिल और कपिल में कौन तेज़ है?\nउत्तर:",
+          "gold": "कपिल",
+          "prediction": "हितेश, निखिल से तेज़ है",
+          "first_word": "हितेश"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 2,
+          "prompt": "प्रश्न: सचिन, हितेश से भारी है। बलराम, सचिन से भारी है। सबसे भारी कौन है?\nउत्तर:",
+          "gold": "बलराम",
+          "prediction": "सचिन, हितेश से भारी है",
+          "first_word": "सचिन"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: सचिन, ललित से भारी है। ललित, ओमकार से भारी है। उदय, सचिन से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "ओमकार",
+          "prediction": "सचिन, ललित से भारी है",
+          "first_word": "सचिन"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी का वज़न 19 किलो है। झाड़ू का वज़न 14 किलो है। क्या रस्सी और झाड़ू का वज़न बराबर है?\nउत्तर:",
+          "gold": "नहीं",
+          "prediction": "रस्सी का वज़न 19 किलो है",
+          "first_word": "रस्सी"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: दस्ताने की कीमत 1241 रुपये है। तकिये की कीमत 387 रुपये है। दस्ताने और तकिये में किसकी कीमत अधिक है?\nउत्तर:",
+          "gold": "दस्ताना",
+          "prediction": "दस्ताने की कीमत 1242 रुपये है",
+          "first_word": "दस्ताने"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: तकिये की कीमत 1027 रुपये है। रस्सी की कीमत 446 रुपये है। बोतल की कीमत 3077 रुपये है। सबसे अधिक कीमत किसकी है?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "कीमत 1027 रुपये है। कीमत 10",
+          "first_word": "कीमत"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: कंघी का वज़न 14 किलो है। किताब का वज़न 73 किलो है। झाड़ू का वज़न 27 किलो है। दस्ताने का वज़न 91 किलो है। सबसे अधिक वज़न किसका है?\nउत्तर:",
+          "gold": "दस्ताना",
+          "prediction": "कंघी का वज़न 18 किलो है",
+          "first_word": "कंघी"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: नितिन, ललित से तेज़ है। ललित, हितेश से तेज़ है। नितिन और हितेश में कौन तेज़ है?\nउत्तर:",
+          "gold": "नितिन",
+          "prediction": "नितिन, ललित से तेज़ है। नितिन",
+          "first_word": "नितिन"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: निखिल, नितिन से तेज़ है। विनोद, ओमकार से तेज़ है। ओमकार, निखिल से तेज़ है। विनोद और नितिन में कौन तेज़ है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "नितिन, नितिन से तेज़ है। नितिन",
+          "first_word": "नितिन"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 2,
+          "prompt": "प्रश्न: नितिन, कपिल से लंबा है। कपिल, विनोद से लंबा है। सबसे छोटा कौन है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "नितिन, कपिल से लंबा है। वह",
+          "first_word": "नितिन"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: सचिन, ओमकार से तेज़ है। रमेश, सचिन से तेज़ है। ओमकार, हितेश से तेज़ है। सबसे धीमा कौन है?\nउत्तर:",
+          "gold": "हितेश",
+          "prediction": "सचिन, ओमकार से तेज़ है",
+          "first_word": "सचिन"
+        }
+      ],
+      "off_format": [
+        {
+          "template": "chain_superlative_least",
+          "hops": 2,
+          "prompt": "प्रश्न: ओमकार, निखिल से भारी है। निखिल, विनोद से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "हां, यह एक बहुत ही अजीब बात",
+          "first_word": "हां"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: निखिल, ललित से तेज़ है। ललित, उदय से तेज़ है। विनोद, निखिल से तेज़ है। सबसे तेज़ कौन है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "रोहित, रोहित, रोहित, रोहित",
+          "first_word": "रोहित"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी की कीमत 3191 रुपये है। झाड़ू की कीमत 596 रुपये है। बैग की कीमत 3592 रुपये है। सबसे अधिक कीमत किसकी है?\nउत्तर:",
+          "gold": "बैग",
+          "prediction": "यह एक ऐसा बैग है, जो एक",
+          "first_word": "यह"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: तकिये की कीमत 245 रुपये है। झाड़ू की कीमत 249 रुपये है। रस्सी की कीमत 2247 रुपये है। सबसे कम कीमत किसकी है?\nउत्तर:",
+          "gold": "तकिया",
+          "prediction": "हां, यह एक बहुत ही कम कीमत",
+          "first_word": "हां"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: किताब का वज़न 4 किलो है। बोतल का वज़न 75 किलो है। कंघी का वज़न 59 किलो है। सबसे अधिक वज़न किसका है?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "यह एक ऐसा पदार्थ है जो आपके शरीर",
+          "first_word": "यह"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 2,
+          "prompt": "प्रश्न: रमेश, उदय से बड़ा है। उदय, कपिल से बड़ा है। निखिल, रमेश से बड़ा है। निखिल और उदय में कौन बड़ा है?\nउत्तर:",
+          "gold": "निखिल",
+          "prediction": "सुनील, उदय से बड़ा है। उदय",
+          "first_word": "सुनील"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी का वज़न 53 किलो है। बोतल का वज़न 84 किलो है। बैग का वज़न 17 किलो है। दस्ताने का वज़न 86 किलो है। सबसे अधिक वज़न किसका है?\nउत्तर:",
+          "gold": "दस्ताना",
+          "prediction": "वजन कम करने के लिए आप एक गिलास",
+          "first_word": "वजन"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: तकिये की कीमत 2054 रुपये है। रस्सी की कीमत 3984 रुपये है। किताब की कीमत 2151 रुपये है। बैग की कीमत 2948 रुपये है। सबसे कम कीमत किसकी है?\nउत्तर:",
+          "gold": "तकिया",
+          "prediction": "कीमत: 1751 रुपये है",
+          "first_word": "कीमत:"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: कपिल, हितेश से भारी है। बलराम, ललित से भारी है। हितेश, बलराम से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "ललित",
+          "prediction": "राहुल गांधी, राहुल गांधी, राहुल गांधी",
+          "first_word": "राहुल"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: दस्ताने का वज़न 92 किलो है। किताब का वज़न 83 किलो है। किताब और दस्ताने में किसका वज़न अधिक है?\nउत्तर:",
+          "gold": "दस्ताना",
+          "prediction": "यह किताब एक ऐसी किताब है, जो",
+          "first_word": "यह"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी की लंबाई 185 सेंटीमीटर है। दस्ताने की लंबाई 126 सेंटीमीटर है। बोतल की लंबाई 17 सेंटीमीटर है। कंघी की लंबाई 253 सेंटीमीटर है। सबसे अधिक लंबाई किसकी है?\nउत्तर:",
+          "gold": "कंघी",
+          "prediction": "यह एक बहुत ही सरल और सरल है",
+          "first_word": "यह"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: तकिये की कीमत 2265 रुपये है। रस्सी की कीमत 2265 रुपये है। क्या तकिये और रस्सी की कीमत बराबर है?\nउत्तर:",
+          "gold": "हाँ",
+          "prediction": "हां, रस्सी की कीमत 1865 रुपये",
+          "first_word": "हां"
+        }
+      ]
+    },
+    "finetuned": {
+      "successes": [
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: हितेश, निखिल से तेज़ है। कपिल, उदय से तेज़ है। उदय, हितेश से तेज़ है। निखिल और कपिल में कौन तेज़ है?\nउत्तर:",
+          "gold": "कपिल",
+          "prediction": "कपिल",
+          "first_word": "कपिल"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: निखिल, नितिन से तेज़ है। विनोद, ओमकार से तेज़ है। ओमकार, निखिल से तेज़ है। विनोद और नितिन में कौन तेज़ है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "विनोद",
+          "first_word": "विनोद"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: उदय, अजय से बड़ा है। रमेश, उदय से बड़ा है। ललित, रमेश से बड़ा है। ललित और अजय में कौन बड़ा है?\nउत्तर:",
+          "gold": "ललित",
+          "prediction": "ललित",
+          "first_word": "ललित"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: निखिल, ललित से तेज़ है। ललित, उदय से तेज़ है। विनोद, निखिल से तेज़ है। सबसे तेज़ कौन है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "विनोद",
+          "first_word": "विनोद"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: ललित, हितेश से बड़ा है। बलराम, ललित से बड़ा है। हितेश, कपिल से बड़ा है। सबसे छोटा कौन है?\nउत्तर:",
+          "gold": "कपिल",
+          "prediction": "कपिल",
+          "first_word": "कपिल"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: ओमकार, निखिल से भारी है। हितेश, अजय से भारी है। निखिल, हितेश से भारी है। ओमकार और अजय में कौन भारी है?\nउत्तर:",
+          "gold": "ओमकार",
+          "prediction": "ओमकार",
+          "first_word": "ओमकार"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: कपिल, हितेश से भारी है। बलराम, ललित से भारी है। हितेश, बलराम से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "ललित",
+          "prediction": "ललित",
+          "first_word": "ललित"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: सचिन, कपिल से भारी है। कपिल, बलराम से भारी है। बलराम, नितिन से भारी है। सबसे भारी कौन है?\nउत्तर:",
+          "gold": "सचिन",
+          "prediction": "सचिन",
+          "first_word": "सचिन"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 3,
+          "prompt": "प्रश्न: ललित, कपिल से बड़ा है। बलराम, ललित से बड़ा है। कपिल, निखिल से बड़ा है। सबसे बड़ा कौन है?\nउत्तर:",
+          "gold": "बलराम",
+          "prediction": "बलराम",
+          "first_word": "बलराम"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: अजय, रमेश से तेज़ है। सचिन, अजय से तेज़ है। रमेश, निखिल से तेज़ है। सबसे धीमा कौन है?\nउत्तर:",
+          "gold": "निखिल",
+          "prediction": "निखिल",
+          "first_word": "निखिल"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: सचिन, हितेश से लंबा है। हितेश, रमेश से लंबा है। रमेश, विनोद से लंबा है। सचिन और विनोद में कौन लंबा है?\nउत्तर:",
+          "gold": "सचिन",
+          "prediction": "सचिन",
+          "first_word": "सचिन"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: निखिल, हितेश से बड़ा है। हितेश, विनोद से बड़ा है। अजय, निखिल से बड़ा है। सबसे छोटा कौन है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "विनोद",
+          "first_word": "विनोद"
+        }
+      ],
+      "wrong_entity": [
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: विनोद की उम्र 79 साल है। ओमकार की उम्र 49 साल है। विनोद और ओमकार में किसकी उम्र अधिक है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "ओमकार",
+          "first_word": "ओमकार"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: कपिल की उम्र 16 साल है। सचिन की उम्र 57 साल है। हितेश की उम्र 56 साल है। सबसे अधिक उम्र किसकी है?\nउत्तर:",
+          "gold": "सचिन",
+          "prediction": "हितेश",
+          "first_word": "हितेश"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: उदय, अजय से भारी है। विनोद, ओमकार से भारी है। ओमकार, उदय से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "अजय",
+          "prediction": "ओमकार",
+          "first_word": "ओमकार"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: बैग का वज़न 50 किलो है। तकिये का वज़न 71 किलो है। बैग और तकिये में किसका वज़न अधिक है?\nउत्तर:",
+          "gold": "तकिया",
+          "prediction": "बैग",
+          "first_word": "बैग"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 2,
+          "prompt": "प्रश्न: बलराम, विनोद से तेज़ है। ओमकार, बलराम से तेज़ है। सबसे तेज़ कौन है?\nउत्तर:",
+          "gold": "ओमकार",
+          "prediction": "बलराम",
+          "first_word": "बलराम"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: कपिल, निखिल से भारी है। बलराम, ललित से भारी है। ललित, कपिल से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "निखिल",
+          "prediction": "ललित",
+          "first_word": "ललित"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: बोतल की कीमत 2365 रुपये है। कंघी की कीमत 275 रुपये है। बोतल और कंघी में किसकी कीमत अधिक है?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "कंघी",
+          "first_word": "कंघी"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: किताब का वज़न 4 किलो है। बोतल का वज़न 75 किलो है। कंघी का वज़न 59 किलो है। सबसे अधिक वज़न किसका है?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "कंघी",
+          "first_word": "कंघी"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: झाड़ू की कीमत 2962 रुपये है। कंघी की कीमत 3924 रुपये है। कंघी और झाड़ू में किसकी कीमत अधिक है?\nउत्तर:",
+          "gold": "कंघी",
+          "prediction": "झाड़ू",
+          "first_word": "झाड़ू"
+        },
+        {
+          "template": "numeric_pair",
+          "hops": 1,
+          "prompt": "प्रश्न: तकिये की कीमत 3503 रुपये है। बैग की कीमत 668 रुपये है। बैग और तकिये में किसकी कीमत अधिक है?\nउत्तर:",
+          "gold": "तकिया",
+          "prediction": "बैग",
+          "first_word": "बैग"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: नितिन की उम्र 19 साल है। अजय की उम्र 44 साल है। ओमकार की उम्र 58 साल है। सबसे कम उम्र किसकी है?\nउत्तर:",
+          "gold": "नितिन",
+          "prediction": "अजय",
+          "first_word": "अजय"
+        },
+        {
+          "template": "chain_superlative_most",
+          "hops": 2,
+          "prompt": "प्रश्न: हितेश, ओमकार से बड़ा है। ओमकार, रमेश से बड़ा है। सबसे बड़ा कौन है?\nउत्तर:",
+          "gold": "हितेश",
+          "prediction": "ओमकार",
+          "first_word": "ओमकार"
+        }
+      ],
+      "off_format": [
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: सचिन, ललित से भारी है। ललित, ओमकार से भारी है। उदय, सचिन से भारी है। सबसे हल्का कौन है?\nउत्तर:",
+          "gold": "ओमकार",
+          "prediction": "चंदन",
+          "first_word": "चंदन"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी का वज़न 19 किलो है। झाड़ू का वज़न 14 किलो है। क्या रस्सी और झाड़ू का वज़न बराबर है?\nउत्तर:",
+          "gold": "नहीं",
+          "prediction": "हाँ",
+          "first_word": "हाँ"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: तकिये की कीमत 1027 रुपये है। रस्सी की कीमत 446 रुपये है। बोतल की कीमत 3077 रुपये है। सबसे अधिक कीमत किसकी है?\nउत्तर:",
+          "gold": "बोतल",
+          "prediction": "जूता",
+          "first_word": "जूता"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: कंघी का वज़न 14 किलो है। किताब का वज़न 73 किलो है। झाड़ू का वज़न 27 किलो है। दस्ताने का वज़न 91 किलो है। सबसे अधिक वज़न किसका है?\nउत्तर:",
+          "gold": "दस्ताना",
+          "prediction": "जूता",
+          "first_word": "जूता"
+        },
+        {
+          "template": "chain_superlative_least",
+          "hops": 3,
+          "prompt": "प्रश्न: सचिन, ओमकार से तेज़ है। रमेश, सचिन से तेज़ है। ओमकार, हितेश से तेज़ है। सबसे धीमा कौन है?\nउत्तर:",
+          "gold": "हितेश",
+          "prediction": "पंकज",
+          "first_word": "पंकज"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: कंघी का वज़न 40 किलो है। झाड़ू का वज़न 46 किलो है। क्या झाड़ू और कंघी का वज़न बराबर है?\nउत्तर:",
+          "gold": "नहीं",
+          "prediction": "हाँ",
+          "first_word": "हाँ"
+        },
+        {
+          "template": "numeric_superlative_least",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी की लंबाई 199 सेंटीमीटर है। कंघी की लंबाई 166 सेंटीमीटर है। बैग की लंबाई 44 सेंटीमीटर है। बोतल की लंबाई 69 सेंटीमीटर है। सबसे कम लंबाई किसकी है?\nउत्तर:",
+          "gold": "बैग",
+          "prediction": "जूता",
+          "first_word": "जूता"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: दस्ताने की लंबाई 197 सेंटीमीटर है। तकिये की लंबाई 85 सेंटीमीटर है। क्या तकिये और दस्ताने की लंबाई बराबर है?\nउत्तर:",
+          "gold": "नहीं",
+          "prediction": "हाँ",
+          "first_word": "हाँ"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: रस्सी की कीमत 3191 रुपये है। झाड़ू की कीमत 596 रुपये है। बैग की कीमत 3592 रुपये है। सबसे अधिक कीमत किसकी है?\nउत्तर:",
+          "gold": "बैग",
+          "prediction": "जूता",
+          "first_word": "जूता"
+        },
+        {
+          "template": "numeric_superlative_most",
+          "hops": 1,
+          "prompt": "प्रश्न: बैग का वज़न 22 किलो है। तकिये का वज़न 3 किलो है। कंघी का वज़न 66 किलो है। दस्ताने का वज़न 43 किलो है। सबसे अधिक वज़न किसका है?\nउत्तर:",
+          "gold": "कंघी",
+          "prediction": "जूता",
+          "first_word": "जूता"
+        },
+        {
+          "template": "chain_pair",
+          "hops": 3,
+          "prompt": "प्रश्न: नितिन, बलराम से तेज़ है। बलराम, उदय से तेज़ है। विनोद, नितिन से तेज़ है। विनोद और उदय में कौन तेज़ है?\nउत्तर:",
+          "gold": "विनोद",
+          "prediction": "अरुण",
+          "first_word": "अरुण"
+        },
+        {
+          "template": "numeric_equality",
+          "hops": 1,
+          "prompt": "प्रश्न: ललित की उम्र 14 साल है। निखिल की उम्र 35 साल है। क्या निखिल और ललित की उम्र बराबर है?\nउत्तर:",
+          "gold": "नहीं",
+          "prediction": "हाँ",
+          "first_word": "हाँ"
+        }
+      ]
+    }
+  },
+  "improvement_strict": 0.5293
+}
